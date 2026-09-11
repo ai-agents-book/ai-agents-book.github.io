@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Agents — Designing, Orchestrating, and Governing LLM-Based Systems</title>
+<meta name="description" content="A book by Michael Bücker and Michael Hewing on building LLM-based agents an organization can run, audit, and maintain. Coming from Springer Nature.">
+<meta property="og:title" content="AI Agents: Designing, Orchestrating, and Governing LLM-Based Systems">
+<meta property="og:description" content="Getting useful output from a language model is easy. Building a system around one that an organization can run, audit, and maintain is not.">
+<meta property="og:image" content="https://ai-agents-book.github.io/img/cover.jpg">
+<meta property="og:type" content="book">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <p class="eyebrow">Coming from Springer Nature</p>
+      <h1>AI Agents</h1>
+      <p class="subtitle">Designing, Orchestrating, and Governing LLM-Based Systems</p>
+      <p class="authors">Michael Bücker &middot; Michael Hewing</p>
+      <p class="lede">Getting useful output from a language model is easy. Building a
+        system around one that an organization can run, audit, and maintain is not.
+        This book is about the distance between those two things.</p>
+    </div>
+    <div class="hero-cover">
+      <img src="img/cover.jpg" width="588" height="760"
+           alt="Cover of AI Agents: Designing, Orchestrating, and Governing LLM-Based Systems, by Michael Bücker and Michael Hewing, published by Springer.">
+    </div>
+  </div>
+</header>
+
+<main>
+
+<section class="band">
+  <h2>What the book is about</h2>
+  <p>An agentic system couples a language model with tools, memory, and an
+    orchestration layer that decides what happens next. That combination turns a
+    model which answers into a system which acts, and it moves the difficult
+    questions out of prompting and into engineering, economics, and governance.</p>
+  <p>The book works through those questions in three parts. The first builds the
+    architecture: how language models behave, how tools extend them, how memory
+    persists across a run, and how an agent's control flow is shaped. The second
+    places that architecture inside an organization, covering integration with
+    existing systems, strategy, the economics of running agents, the policies that
+    constrain them, and the processes they touch. The third is about operations:
+    orchestrating several agents, governing them while they run, maintaining them
+    as models and dependencies change, and securing them against a class of attack
+    that did not exist before.</p>
+  <p>It grew out of research, teaching, and company collaborations at the Institute
+    for Process Management and Digital Transformation at FH Münster. The code
+    examples are Python that runs, and the outputs printed in the book are the ones
+    that code produced. Every chapter opens with a quote from someone building these
+    systems in industry.</p>
+</section>
+
+<section class="band alt">
+  <h2>Contents</h2>
+  <p class="intro">An introduction, then thirteen chapters in three parts.</p>
+  <div class="parts">
+    <div class="part">
+      <h3>I &middot; Design and Architecture</h3>
+      <ol>
+        <li>Large Language Models</li>
+        <li>Tools</li>
+        <li>Memory</li>
+        <li>Agent flow</li>
+      </ol>
+    </div>
+    <div class="part">
+      <h3>II &middot; Organization and Economics</h3>
+      <ol start="5">
+        <li>Integration</li>
+        <li>Strategy</li>
+        <li>Economics</li>
+        <li>Organizational policies</li>
+        <li>Business processes</li>
+      </ol>
+    </div>
+    <div class="part">
+      <h3>III &middot; Operations</h3>
+      <ol start="10">
+        <li>Orchestration</li>
+        <li>Runtime governance</li>
+        <li>Build and maintenance</li>
+        <li>Security</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <h2>Who it is for</h2>
+  <p>Graduate students in business, information systems, and data science, and
+    practitioners who have to make decisions rather than demonstrations: the
+    engineers who build agents, the architects who integrate them, and the people
+    who carry the budget and the risk. The book assumes you can read Python. It
+    does not assume you have deployed a model before.</p>
+</section>
+
+<section class="band alt">
+  <h2>Voices from practice</h2>
+  <p class="intro">Each chapter opens with a perspective from someone doing this work.</p>
+  <figure class="quote">
+    <blockquote>Never automate a crap process. The greatest risk with agentic AI is
+      building automated solutions for broken, siloed, or even completely unnecessary
+      processes.</blockquote>
+    <figcaption><strong>Armin Müller</strong>, Global Head of Data &amp; AI, Kaufland</figcaption>
+  </figure>
+  <figure class="quote">
+    <blockquote>The existence of shadow AI is not proof that people ignore policies.
+      It is proof that policies ignored how people actually work.</blockquote>
+    <figcaption><strong>Lennart Stitz</strong>, Data Scientist, Surventis; Lecturer on AI for Business, University of Münster</figcaption>
+  </figure>
+  <figure class="quote">
+    <blockquote>The crucial question is not which tasks AI can take over, but whether
+      it understands enough of the organization to contribute meaningfully to how
+      work gets done.</blockquote>
+    <figcaption><strong>Jochen Wilms</strong>, Founder, wirocks</figcaption>
+  </figure>
+</section>
+
+<section class="band">
+  <h2>The authors</h2>
+  <div class="authors-grid">
+    <div class="bio">
+      <h3>Michael Bücker</h3>
+      <p>Professor of Data Science, Mathematics, and Information Systems at the
+        Münster School of Business, FH Münster, where he directs the Digital Business
+        and Innovation Management programme and serves on the board of the Institute
+        for Process Management and Digital Transformation. His work covers applied
+        data science, machine learning, and explainable AI. Before entering academia
+        he was a consultant and project manager at McKinsey &amp; Company.</p>
+    </div>
+    <div class="bio">
+      <h3>Michael Hewing</h3>
+      <p>Professor of Information Systems and Digital Technologies at the Münster
+        School of Business, FH Münster, and board member of the Institute for Process
+        Management and Digital Transformation. He researches information systems
+        management, digital transformation, and business process management. Before
+        entering academia he was a Senior Managing Consultant at IBM, leading
+        digitalisation and IT transformation projects.</p>
+    </div>
+  </div>
+</section>
+
+<section class="band alt">
+  <h2>Material for readers</h2>
+  <div class="cards">
+    <a class="card" href="https://github.com/ai-agents-book/code">
+      <h3>Code</h3>
+      <p>Every example from the book as a runnable notebook, one per chapter, with
+        the environment pinned to the versions that produced the printed output.</p>
+    </a>
+    <a class="card" href="https://ai-agents-book.github.io/appendices/">
+      <h3>Appendices</h3>
+      <p>Python setup, a reference on Python and web APIs, and the deep learning
+        background the models chapter builds on. Readable online or as a PDF.</p>
+    </a>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <!--
+    IMPRINT REQUIRED BEFORE THIS PAGE GOES PUBLIC.
+
+    A publicly reachable site operated from Germany carries an imprint
+    obligation (TMG/DDG). What must appear, and who is named as responsible,
+    depends on whether this page runs privately under the authors' names or
+    under FH Münster. Settle that with the university, then replace this
+    comment with the imprint and link it below. GitHub Pages must stay
+    switched off until then.
+  -->
+  <p>&copy; 2026 Michael Bücker and Michael Hewing</p>
+  <p class="imprint-pending">Imprint to follow.</p>
+</footer>
+
+</body>
+</html>
