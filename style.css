@@ -12,7 +12,8 @@
   --ink-soft: #4a5b6b;
   --page: #ffffff;
   --rule: #dbe4ec;
-  --measure: 40rem;
+  --measure: 40rem;   /* reading measure for prose */
+  --column: 62rem;    /* the page's single content column */
 }
 
 @media (prefers-color-scheme: dark) {
@@ -113,10 +114,19 @@ a { color: var(--accent); }
 
 /* --- Sections ------------------------------------------------------------ */
 
-.band { padding: clamp(2.75rem, 6vw, 4.5rem) 1.5rem; }
+/* One column for the whole page. The centring lives in the section's own
+   inline padding rather than in `margin-inline: auto` on each child, so that
+   every block shares one left edge no matter how wide it is: prose stops at
+   the reading measure, grids run the full column, and both start in the same
+   place. Centring each child individually instead gives each width its own
+   left edge, which reads as ragged indentation down the page. */
+.band {
+  padding-block: clamp(2.75rem, 6vw, 4.5rem);
+  padding-inline: max(1.5rem, calc((100% - var(--column)) / 2));
+}
 .band.alt { background: var(--tint); }
 
-.band > * { max-width: var(--measure); margin-inline: auto; }
+.band > * { max-width: var(--measure); }
 
 .band h2 {
   margin: 0 0 1.5rem;
@@ -133,7 +143,7 @@ a { color: var(--accent); }
 /* --- Contents ------------------------------------------------------------ */
 
 .parts {
-  max-width: 62rem;
+  max-width: none;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
   gap: 2rem;
@@ -155,7 +165,7 @@ a { color: var(--accent); }
 
 /* --- Quotes -------------------------------------------------------------- */
 
-.quote { margin: 0 auto 2rem; }
+.quote { margin: 0 0 2rem; }
 .quote:last-child { margin-bottom: 0; }
 
 .quote blockquote {
@@ -176,7 +186,7 @@ a { color: var(--accent); }
 /* --- Authors ------------------------------------------------------------- */
 
 .authors-grid {
-  max-width: 56rem;
+  max-width: 56rem;  /* narrower than the column, still flush left */
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
   gap: 2.5rem;
