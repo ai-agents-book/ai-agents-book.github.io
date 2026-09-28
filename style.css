@@ -75,10 +75,14 @@ a { color: var(--accent); }
   position: relative;   /* anchors .theme-toggle */
 }
 
+/* Fixed rather than absolute, so the control exists on every page and not
+   only on the one that happens to have a hero to anchor it to. */
 .theme-toggle {
-  position: absolute;
+  position: fixed;
   top: 1rem;
   right: 1.25rem;
+  z-index: 10;
+  background: var(--page);
   padding: 0.35rem 0.85rem;
   background: transparent;
   border: 1px solid var(--rule);

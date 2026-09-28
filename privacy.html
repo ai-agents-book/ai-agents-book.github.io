@@ -6,15 +6,35 @@
 <title>Privacy — AI Agents</title>
 <meta name="robots" content="noindex">
 <link rel="stylesheet" href="style.css">
+<script>
+  /* Applies a stored theme choice before first paint. Inline and repeated on
+     every page rather than pulled from a shared file: it has to run before
+     the first paint to avoid a flash of the other scheme, and a page that
+     omitted it would silently ignore the visitor's choice -- which is exactly
+     what the imprint and privacy pages did until this was added. */
+  try {
+    var saved = localStorage.getItem("theme");
+    if (saved === "dark" || saved === "light") {
+      document.documentElement.dataset.theme = saved;
+    }
+  } catch (e) {}
+</script>
 </head>
 <body>
+
+<button id="theme-toggle" class="theme-toggle" type="button" hidden>
+  <span data-when="light">Dark mode</span><span data-when="dark">Light mode</span>
+</button>
 
 <main>
 
 <section class="band">
   <p class="eyebrow"><a href="index.html">AI Agents</a></p>
   <h2>Privacy notice</h2>
-  <p class="intro">Datenschutzerklärung — information under Articles 13 and 14 GDPR</p>
+  <!-- Article 13 only. Article 14 covers data obtained from someone other
+       than the data subject; everything here arises from the visitor's own
+       request for the page. -->
+  <p class="intro">Datenschutzerklärung — information pursuant to Article 13 GDPR</p>
 
   <h3>Controllers</h3>
   <p>
@@ -33,17 +53,30 @@
     page asks you for personal data.</p>
 
   <h3>Hosting and server log files</h3>
-  <p>The site is hosted on GitHub Pages, operated by GitHub, Inc., 88 Colin P.
-    Kelly Jr. Street, San Francisco, CA 94107, USA. Serving a page technically
-    requires your IP address, and GitHub records connection data such as the IP
-    address, the time of the request, the page requested, and the browser and
-    operating system reported by your browser. We have no access to these logs
-    and do not evaluate them.</p>
-  <p>The legal basis is Article 6(1)(f) GDPR. The legitimate interest is the
-    secure and reliable delivery of the page. Because GitHub processes this
-    data in the United States, the transfer relies on GitHub's certification
-    under the EU–US Data Privacy Framework. GitHub's own privacy statement
-    describes this processing:
+  <p>The site is hosted on GitHub Pages. Serving a page technically requires
+    your IP address, and GitHub records connection data such as the IP address,
+    the time of the request, the page requested, and the browser and operating
+    system reported by your browser.</p>
+  <p><strong>Recipient:</strong> GitHub, Inc., 88 Colin P. Kelly Jr. Street,
+    San Francisco, CA 94107, USA, as the provider of the GitHub Pages hosting
+    service.</p>
+  <p><strong>Legal basis:</strong> Article 6(1)(f) GDPR. The legitimate
+    interest is the secure and reliable delivery of the page.</p>
+  <!-- A retention period is stated as a criterion rather than a number:
+       Art. 13(2)(a) accepts that, and inventing a figure for logs we cannot
+       see would be worse than naming who decides it. -->
+  <p><strong>Retention:</strong> GitHub determines the retention period for
+    these server log data in accordance with its own privacy policies. We have
+    no access to these logs, do not evaluate them, and cannot independently
+    delete them.</p>
+  <!-- Phrased as GitHub's own statement rather than as our assertion, so the
+       notice does not become false the moment GitHub relies on a different
+       transfer mechanism. -->
+  <p><strong>Transfer to a third country:</strong> to the extent personal data
+    are transferred to the United States, GitHub states that such transfers may
+    be based, among other mechanisms, on its participation in the EU–US Data
+    Privacy Framework. GitHub's own privacy statement describes this
+    processing:
     <a href="https://docs.github.com/site-policy/privacy-policies/github-general-privacy-statement">GitHub General Privacy Statement</a>.</p>
 
   <h3>Colour scheme setting</h3>
@@ -84,6 +117,37 @@
   <p><a href="index.html">Back to the book</a></p>
   <p>&copy; 2026 Michael Bücker and Michael Hewing</p>
 </footer>
+
+<script>
+  /* The button is hidden in markup and revealed here, so a visitor without
+     JavaScript is not offered a control that cannot work. Their system
+     preference still decides the scheme, which is the sensible default. */
+  (function () {
+    var button = document.getElementById("theme-toggle");
+    if (!button) return;
+    button.hidden = false;
+
+    function current() {
+      return document.documentElement.dataset.theme ||
+        (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    }
+
+    function label() {
+      button.setAttribute(
+        "aria-label",
+        current() === "dark" ? "Switch to light mode" : "Switch to dark mode"
+      );
+    }
+
+    label();
+    button.addEventListener("click", function () {
+      var next = current() === "dark" ? "light" : "dark";
+      document.documentElement.dataset.theme = next;
+      label();
+      try { localStorage.setItem("theme", next); } catch (e) {}
+    });
+  })();
+</script>
 
 </body>
 </html>

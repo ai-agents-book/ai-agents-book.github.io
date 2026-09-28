@@ -6,8 +6,25 @@
 <title>Imprint — AI Agents</title>
 <meta name="robots" content="noindex">
 <link rel="stylesheet" href="style.css">
+<script>
+  /* Applies a stored theme choice before first paint. Inline and repeated on
+     every page rather than pulled from a shared file: it has to run before
+     the first paint to avoid a flash of the other scheme, and a page that
+     omitted it would silently ignore the visitor's choice -- which is exactly
+     what the imprint and privacy pages did until this was added. */
+  try {
+    var saved = localStorage.getItem("theme");
+    if (saved === "dark" || saved === "light") {
+      document.documentElement.dataset.theme = saved;
+    }
+  } catch (e) {}
+</script>
 </head>
 <body>
+
+<button id="theme-toggle" class="theme-toggle" type="button" hidden>
+  <span data-when="light">Dark mode</span><span data-when="dark">Light mode</span>
+</button>
 
 <main>
 
@@ -63,6 +80,37 @@
   <p><a href="index.html">Back to the book</a></p>
   <p>&copy; 2026 Michael Bücker and Michael Hewing</p>
 </footer>
+
+<script>
+  /* The button is hidden in markup and revealed here, so a visitor without
+     JavaScript is not offered a control that cannot work. Their system
+     preference still decides the scheme, which is the sensible default. */
+  (function () {
+    var button = document.getElementById("theme-toggle");
+    if (!button) return;
+    button.hidden = false;
+
+    function current() {
+      return document.documentElement.dataset.theme ||
+        (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    }
+
+    function label() {
+      button.setAttribute(
+        "aria-label",
+        current() === "dark" ? "Switch to light mode" : "Switch to dark mode"
+      );
+    }
+
+    label();
+    button.addEventListener("click", function () {
+      var next = current() === "dark" ? "light" : "dark";
+      document.documentElement.dataset.theme = next;
+      label();
+      try { localStorage.setItem("theme", next); } catch (e) {}
+    });
+  })();
+</script>
 
 </body>
 </html>
