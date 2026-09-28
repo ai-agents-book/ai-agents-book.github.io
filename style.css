@@ -276,8 +276,8 @@ a { color: var(--accent); }
 /* Served square and masked here rather than cropped to a circle in the file,
    so the same asset stays usable if the shape ever changes. */
 .portrait {
-  width: 4.5rem;
-  height: 4.5rem;
+  width: 7rem;
+  height: 7rem;
   flex: none;
   border-radius: 50%;
   object-fit: cover;
