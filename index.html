@@ -205,10 +205,14 @@
     before.</p>
 
   <!-- Listing 4.1, as printed. Coloured by hand because a highlighter would
-       mean a script, and the page loads none. -->
+       mean a script, and the page loads none. The label sits above the block
+       as prose rather than inside it as a comment: the comment was not part
+       of the listing, and a reader arriving at a bare code block has no way
+       to tell what they are looking at. -->
   <figure class="listing">
-<pre><code><span class="c"># Listing 4.1 — the agent loop, in full</span>
-state = <span class="f">initialize_state</span>(user_input)
+    <p class="listing-lead">An example from the book — Listing&nbsp;4.1, in
+      the chapter on agent flow</p>
+<pre><code>state = <span class="f">initialize_state</span>(user_input)
 
 <span class="k">while not</span> <span class="f">should_stop</span>(state):
     action      = <span class="f">select_next_action</span>(state)
@@ -216,9 +220,12 @@ state = <span class="f">initialize_state</span>(user_input)
     state       = <span class="f">update_state</span>(state, action, observation)
 
 response = <span class="f">finalize_response</span>(state)</code></pre>
-    <figcaption>Nine lines, and every argument in the book is somewhere in
+    <figcaption>Six lines, and every argument in the book is somewhere in
       them: what counts as state, who decides the next action, who is allowed
-      to execute it, and what makes it stop.</figcaption>
+      to execute it, and what makes it stop. No listing is left to speak for
+      itself — each one is introduced and worked through in the text around
+      it, and the runnable ones are followed by the output they actually
+      produced.</figcaption>
   </figure>
 </section>
 
