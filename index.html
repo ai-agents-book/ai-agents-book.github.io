@@ -61,10 +61,22 @@
   </symbol>
 </svg>
 
-<header class="hero">
+<nav class="topbar" aria-label="Sections of this page">
+  <a class="topbar-brand" href="#top">AI Agents</a>
+  <ul class="topbar-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#contents">Contents</a></li>
+    <li><a href="#audience">Who it is for</a></li>
+    <li><a href="#readers">Readers</a></li>
+    <li><a href="#authors">Authors</a></li>
+    <li><a href="#material">Material</a></li>
+  </ul>
   <button id="theme-toggle" class="theme-toggle" type="button" hidden>
     <span data-when="light">Dark mode</span><span data-when="dark">Light mode</span>
   </button>
+</nav>
+
+<header class="hero" id="top">
   <div class="hero-inner">
     <div class="hero-text">
       <p class="eyebrow">Coming from Springer Nature</p>
@@ -93,7 +105,7 @@
 
 <main>
 
-<section class="band">
+<section class="band" id="about">
   <h2>What the book is about</h2>
   <p>An agentic system couples a language model with tools, memory, and an
     orchestration layer that decides what happens next. That combination turns a
@@ -115,7 +127,7 @@
     systems in industry.</p>
 </section>
 
-<section class="band alt">
+<section class="band alt" id="contents">
   <h2>Contents</h2>
   <p class="intro">An introduction, then thirteen chapters in three parts.</p>
   <div class="parts">
@@ -150,7 +162,7 @@
   </div>
 </section>
 
-<section class="band">
+<section class="band" id="audience">
   <h2>Who it is for</h2>
   <p>Graduate students in business, information systems, and data science, and
     practitioners who have to make decisions rather than demonstrations: the
@@ -159,7 +171,7 @@
     does not assume you have deployed a model before.</p>
 </section>
 
-<section class="band alt">
+<section class="band alt" id="readers">
   <h2>What readers say</h2>
   <figure class="quote">
     <blockquote>This book is exactly what I have been looking for for quite some time.
@@ -188,7 +200,7 @@
   <!-- Further endorsements go here as they arrive, as siblings of these two. -->
 </section>
 
-<section class="band">
+<section class="band" id="authors">
   <h2>The authors</h2>
   <div class="authors-grid">
     <div class="bio">
@@ -201,8 +213,9 @@
         Münster School of Business, FH Münster, where he directs the Digital Business
         and Innovation Management programme and serves on the board of the Institute
         for Process Management and Digital Transformation. His work covers applied
-        data science, machine learning, and explainable AI. Before entering academia
-        he was a consultant and project manager at McKinsey &amp; Company.</p>
+        data science, machine learning, explainable AI, and statistical methods that
+        bridge theory and organizational practice. Before entering academia he was a
+        consultant and project manager at McKinsey &amp; Company.</p>
       <ul class="bio-links">
         <li><a href="https://buecker.ms"><svg class="icon" aria-hidden="true"><use href="#i-globe"/></svg>buecker.ms</a></li>
         <li><a href="https://www.fh-muenster.de/de/msb/ueber-uns/mitarbeitende/professsorenprofile/buecker"><svg class="icon" aria-hidden="true"><use href="#i-university"/></svg>FH Münster</a></li>
@@ -218,10 +231,12 @@
       </div>
       <p>Professor of Information Systems and Digital Technologies at the Münster
         School of Business, FH Münster, and board member of the Institute for Process
-        Management and Digital Transformation. He researches information systems
-        management, digital transformation, and business process management. Before
+        Management and Digital Transformation. He researches and teaches information
+        systems management, digital transformation, business process management, and
+        the integration of advanced technologies into organizational contexts. Before
         entering academia he was a Senior Managing Consultant at IBM, leading
-        digitalisation and IT transformation projects.</p>
+        digitalisation and IT transformation projects for public-sector and enterprise
+        clients.</p>
       <ul class="bio-links">
         <li><a href="https://www.fh-muenster.de/de/msb/ueber-uns/mitarbeitende/professsorenprofile/hewing"><svg class="icon" aria-hidden="true"><use href="#i-university"/></svg>FH Münster</a></li>
         <li><a href="https://www.linkedin.com/in/michaelhewing/"><svg class="icon" aria-hidden="true"><use href="#i-linkedin"/></svg>LinkedIn</a></li>
@@ -229,10 +244,10 @@
       </ul>
     </div>
   </div>
-  <p class="credit">Photographs: FH Münster/Hannah Jasiewitz</p>
+  <p class="credit">Both author photographs: FH Münster/Hannah Jasiewitz</p>
 </section>
 
-<section class="band alt">
+<section class="band alt" id="material">
   <h2>Material for readers</h2>
   <div class="cards">
     <a class="card" href="https://github.com/ai-agents-book/code">

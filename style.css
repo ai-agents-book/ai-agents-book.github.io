@@ -60,6 +60,77 @@ img { max-width: 100%; height: auto; }
 
 a { color: var(--accent); }
 
+
+/* --- Top bar -------------------------------------------------------------- */
+
+/* Sticky rather than fixed: it keeps its place in the flow, so nothing has to
+   be padded out from underneath it, and the scroll-margin below keeps a
+   section heading from landing behind it when an anchor is followed. */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 1rem clamp(0.75rem, 2vw, 1.5rem);
+  flex-wrap: wrap;
+  padding: 0.6rem max(1.5rem, calc((100% - var(--column)) / 2));
+  background: var(--page);
+  border-bottom: 1px solid var(--rule);
+}
+
+.topbar-brand {
+  font-weight: 700;
+  text-decoration: none;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+
+.topbar-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem clamp(0.75rem, 2vw, 1.4rem);
+  margin: 0;
+  margin-right: auto;
+  padding: 0;
+  list-style: none;
+  font-size: 0.9375rem;
+}
+
+.topbar-links a {
+  text-decoration: none;
+  color: var(--ink-soft);
+}
+
+.topbar-links a:hover, .topbar-links a:focus-visible {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+/* Clears the sticky bar when a link jumps to a section. */
+:target, .band[id] { scroll-margin-top: 4.5rem; }
+
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+
+/* At phone width the bar wrapped onto three rows and, being sticky, kept a
+   fifth of the screen for itself. One row that scrolls sideways keeps every
+   link reachable at a fraction of the height; the wordmark goes, since the
+   page title sits right beneath it anyway. */
+@media (max-width: 48rem) {
+  .topbar { flex-wrap: nowrap; padding-block: 0.45rem; }
+  .topbar-brand { display: none; }
+  .topbar-links {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .topbar-links::-webkit-scrollbar { display: none; }
+  .topbar-links a { white-space: nowrap; }
+}
+
 /* --- Hero ---------------------------------------------------------------- */
 
 .hero {
@@ -75,17 +146,13 @@ a { color: var(--accent); }
   position: relative;   /* anchors .theme-toggle */
 }
 
-/* Fixed rather than absolute, so the control exists on every page and not
-   only on the one that happens to have a hero to anchor it to. */
+/* Sits in the top bar now. It used to float over the page, which meant it
+   covered text at phone width for the whole scroll; riding along in the bar
+   removes that problem instead of working around it. */
 .theme-toggle {
-  position: fixed;
-  top: 1rem;
-  right: 1.25rem;
-  z-index: 10;
-  /* Opaque, not transparent: the button floats over the page now, so content
-     would otherwise scroll visibly through it. */
-  background: var(--page);
-  padding: 0.35rem 0.85rem;
+  flex: none;
+  background: transparent;
+  padding: 0.3rem 0.8rem;
   border: 1px solid var(--rule);
   border-radius: 999px;
   color: var(--ink-soft);
@@ -99,13 +166,6 @@ a { color: var(--accent); }
   color: var(--accent);
 }
 
-/* On a narrow screen the text runs nearly edge to edge, so a button pinned
-   to the viewport sits on top of it for the whole scroll. There it parks at
-   the top of the page instead and scrolls away like any other element. */
-@media (max-width: 48rem) {
-  body { position: relative; }
-  .theme-toggle { position: absolute; }
-}
 
 /* The button carries both labels; the scheme in force decides which shows,
    so the label stays right even when the system preference changes under a
@@ -285,9 +345,16 @@ a { color: var(--accent); }
 
 .bio h3 { margin: 0; font-size: 1.125rem; }
 
-/* The photographer's credit, once for both portraits. */
+/* The photographer's credit, once for both portraits. It is not centred:
+   every block on this page shares one left edge, and centring this one
+   alone would read as a stray indent. Instead it spans the grid's width
+   under a hairline, which is what makes it belong to both columns rather
+   than to the left one it happens to sit beneath. */
 .credit {
+  max-width: 56rem;
   margin-top: 1.5rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--rule);
   font-size: 0.8125rem;
   color: var(--ink-soft);
 }
