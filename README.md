@@ -1,26 +1,36 @@
-# ai-agents-book.github.io
+# aiagentsbook.org
 
 The website for *AI Agents: Designing, Orchestrating, and Governing LLM-Based
 Systems* by Michael Bücker and Michael Hewing, to be published by Springer
 Nature.
 
-A single hand-written page: `index.html`, `style.css`, and one image. No build
-step, no dependencies, no JavaScript, and no external requests, so nothing is
-fetched from third parties and no personal data is collected. Editing the page
-means editing the HTML; publishing it means pushing a commit.
+Three hand-written pages — `index.html`, `imprint.html`, `privacy.html` — plus
+`style.css`, the cover render, two author portraits, and a favicon. No build
+step and no dependencies. Editing the page means editing the HTML; publishing
+it means pushing a commit to `main`.
 
-## GitHub Pages is deliberately switched off
+## No external requests
 
-**Do not enable Pages until the imprint question is settled.** A publicly
-reachable site operated from Germany carries an imprint obligation, and what
-must appear depends on whether this page runs privately under the authors'
-names or under FH Münster. The footer carries a placeholder and a comment
-saying the same thing.
+Nothing on these pages is fetched from a third party: the icons are an inline
+SVG sprite, the portraits and the cover are local files, and there are no web
+fonts, no analytics, and no embedded content. That is what lets the privacy
+notice say a visit contacts no one but the host, and it is why there is no
+cookie banner. **Keep it that way** — a single `<script src>`, webfont link,
+or embedded video would make `privacy.html` false.
 
-Once Pages is enabled, this repository serves at `ai-agents-book.github.io`,
-and the appendices, which live in their own repository, continue to serve
-beneath it at `/appendices/`. Attaching a custom domain here later moves both
-without any change to either repository.
+The only JavaScript is inline and does one thing: remember whether the visitor
+switched the colour scheme. It writes the word `light` or `dark` to local
+storage, which `privacy.html` describes.
+
+## Addresses
+
+The site serves at <https://aiagentsbook.org/>. The apex domain is configured
+through `CNAME`, with A records at the registrar pointing to GitHub's Pages
+addresses; `ai-agents-book.github.io` now redirects here.
+
+The appendices live in [their own repository](https://github.com/ai-agents-book/appendices)
+and serve beneath this one at [`/appendices/`](https://aiagentsbook.org/appendices/),
+which is the address printed in the book.
 
 ## Related
 
@@ -29,7 +39,7 @@ without any change to either repository.
 
 ## Still to do
 
-- The blurb and the author biographies here are drafts for the authors to rewrite.
-- Two chapter quotes (Tobias Nendel, Bernard Sonnenschein) are not yet confirmed
-  by their contributors and are therefore not shown.
-- Springer's final cover replaces `img/cover.jpg` when it exists.
+- `img/cover-3d.*` is a render of the current cover; replace it if Springer's
+  final artwork differs.
+- Further endorsements go into the "What readers say" section as they arrive,
+  as siblings of the two already there.
