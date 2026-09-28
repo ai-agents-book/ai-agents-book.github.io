@@ -7,27 +7,84 @@
 <meta name="description" content="A book by Michael Bücker and Michael Hewing on building LLM-based agents an organization can run, audit, and maintain. Coming from Springer Nature.">
 <meta property="og:title" content="AI Agents: Designing, Orchestrating, and Governing LLM-Based Systems">
 <meta property="og:description" content="Getting useful output from a language model is easy. Building a system around one that an organization can run, audit, and maintain is not.">
-<meta property="og:image" content="https://ai-agents-book.github.io/img/cover.jpg">
+<meta property="og:image" content="https://ai-agents-book.github.io/img/cover-3d.jpg">
 <meta property="og:type" content="book">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="style.css">
+<script>
+  /* Applies a stored theme choice before first paint, so a visitor who picked
+     one does not see the other flash first. Wrapped because localStorage
+     throws in a private window with site data blocked, where doing nothing
+     and following the system preference is the right outcome. */
+  try {
+    var saved = localStorage.getItem("theme");
+    if (saved === "dark" || saved === "light") {
+      document.documentElement.dataset.theme = saved;
+    }
+  } catch (e) {}
+</script>
 </head>
 <body>
 
+<!-- Icons are inline symbols rather than an icon font or a sprite file,
+     because the page loads nothing from anywhere. Each is monochrome and
+     inherits the link colour via currentColor, which also keeps the brand
+     marks out of it: every icon sits beside its own text label, so the
+     meaning never depends on recognising the glyph. -->
+<svg xmlns="http://www.w3.org/2000/svg" hidden>
+  <symbol id="i-globe" viewBox="0 0 16 16">
+    <circle cx="8" cy="8" r="6.6" fill="none" stroke="currentColor" stroke-width="1.3"/>
+    <ellipse cx="8" cy="8" rx="3" ry="6.6" fill="none" stroke="currentColor" stroke-width="1.3"/>
+    <path d="M1.8 5.7h12.4M1.8 10.3h12.4" stroke="currentColor" stroke-width="1.3"/>
+  </symbol>
+  <symbol id="i-university" viewBox="0 0 16 16">
+    <path d="M8 1.6 15 5 8 8.4 1 5z" fill="none" stroke="currentColor"
+          stroke-width="1.3" stroke-linejoin="round"/>
+    <path d="M3.6 6.6v4.1c0 1.3 2 2.4 4.4 2.4s4.4-1.1 4.4-2.4V6.6"
+          fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="i-linkedin" viewBox="0 0 16 16">
+    <rect x="0.9" y="0.9" width="14.2" height="14.2" rx="2.4" fill="none"
+          stroke="currentColor" stroke-width="1.3"/>
+    <circle cx="4.5" cy="4.6" r="1.05" fill="currentColor"/>
+    <path d="M4.5 6.9v5.2M7.6 12.1V6.9m0 1.8c0-1 .8-1.8 1.9-1.8s1.9.8 1.9 2.1v3.1"
+          fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="i-orcid" viewBox="0 0 16 16">
+    <circle cx="8" cy="8" r="6.6" fill="none" stroke="currentColor" stroke-width="1.3"/>
+    <circle cx="5.6" cy="4.7" r="0.85" fill="currentColor"/>
+    <path d="M5.6 6.9v5.1" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+    <path d="M8.6 12V6.9h1.7a2.55 2.55 0 0 1 0 5.1z" fill="none"
+          stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/>
+  </symbol>
+</svg>
+
 <header class="hero">
+  <button id="theme-toggle" class="theme-toggle" type="button" hidden>
+    <span data-when="light">Dark mode</span><span data-when="dark">Light mode</span>
+  </button>
   <div class="hero-inner">
     <div class="hero-text">
       <p class="eyebrow">Coming from Springer Nature</p>
       <h1>AI Agents</h1>
       <p class="subtitle">Designing, Orchestrating, and Governing LLM-Based Systems</p>
       <p class="authors">Michael Bücker &middot; Michael Hewing</p>
+      <p class="foreword-by">With a foreword by <strong>Prof. Jan vom Brocke</strong>,
+        Chair of Information Systems and Business Process Management and Director of
+        the European Research Center for Information Systems, University of Münster</p>
       <p class="lede">Getting useful output from a language model is easy. Building a
         system around one that an organization can run, audit, and maintain is not.
         This book is about the distance between those two things.</p>
     </div>
     <div class="hero-cover">
-      <img src="img/cover.jpg" width="588" height="760"
-           alt="Cover of AI Agents: Designing, Orchestrating, and Governing LLM-Based Systems, by Michael Bücker and Michael Hewing, published by Springer.">
+      <!-- WebP because it is the only format here that carries the render's
+           transparency at a sensible weight: 102 KB against 705 for the same
+           image as PNG. Transparency is what lets one file serve both colour
+           schemes instead of a white rectangle showing up in dark mode. The
+           JPEG beside it exists only for og:image, since social scrapers
+           still handle WebP unevenly. -->
+      <img src="img/cover-3d.webp" width="600" height="900"
+           alt="AI Agents: Designing, Orchestrating, and Governing LLM-Based Systems, by Michael Bücker and Michael Hewing, published by Springer.">
     </div>
   </div>
 </header>
@@ -101,25 +158,32 @@
 </section>
 
 <section class="band alt">
-  <h2>Voices from practice</h2>
-  <p class="intro">Each chapter opens with a perspective from someone doing this work.</p>
+  <h2>What readers say</h2>
   <figure class="quote">
-    <blockquote>Never automate a crap process. The greatest risk with agentic AI is
-      building automated solutions for broken, siloed, or even completely unnecessary
-      processes.</blockquote>
+    <blockquote>This book is exactly what I have been looking for for quite some time.
+      It brings together a thorough technical explanation how agentic systems work
+      under the hood with operational and strategic considerations. In my role, I
+      don’t have the time to investigate all of this on my own and connect all the
+      dots by myself. In this sense, this book is a valuable resource for anyone who
+      wants to get real value from agentic AI and not just follow the hype.</blockquote>
     <figcaption><strong>Armin Müller</strong>, Global Head of Data &amp; AI, Kaufland</figcaption>
   </figure>
+  <!-- Two contiguous sentences, lifted without an ellipsis: the passage reads
+       the same here as it does on the page it comes from, which is the point
+       of quoting a foreword rather than commissioning a blurb. The source is
+       named in the caption so nobody mistakes it for a separate endorsement
+       solicited for this site. -->
   <figure class="quote">
-    <blockquote>The existence of shadow AI is not proof that people ignore policies.
-      It is proof that policies ignored how people actually work.</blockquote>
-    <figcaption><strong>Lennart Stitz</strong>, Data Scientist, Surventis; Lecturer on AI for Business, University of Münster</figcaption>
+    <blockquote>What distinguishes this contribution is not so much any single
+      chapter as the sensibility running through all of them: agentic AI is
+      treated throughout as an organizational actor, not merely a technical
+      artifact. It acts within processes, incentives, and governance
+      structures, and must therefore be understood on those terms as much as
+      on technical ones.</blockquote>
+    <figcaption><strong>Jan vom Brocke</strong>, Chair of Information Systems and
+      Business Process Management, University of Münster — <em>from the foreword</em></figcaption>
   </figure>
-  <figure class="quote">
-    <blockquote>The crucial question is not which tasks AI can take over, but whether
-      it understands enough of the organization to contribute meaningfully to how
-      work gets done.</blockquote>
-    <figcaption><strong>Jochen Wilms</strong>, Founder, wirocks</figcaption>
-  </figure>
+  <!-- Further endorsements go here as they arrive, as siblings of these two. -->
 </section>
 
 <section class="band">
@@ -133,6 +197,12 @@
         for Process Management and Digital Transformation. His work covers applied
         data science, machine learning, and explainable AI. Before entering academia
         he was a consultant and project manager at McKinsey &amp; Company.</p>
+      <ul class="bio-links">
+        <li><a href="https://buecker.ms"><svg class="icon" aria-hidden="true"><use href="#i-globe"/></svg>buecker.ms</a></li>
+        <li><a href="https://www.fh-muenster.de/de/msb/ueber-uns/mitarbeitende/professsorenprofile/buecker"><svg class="icon" aria-hidden="true"><use href="#i-university"/></svg>FH Münster</a></li>
+        <li><a href="https://www.linkedin.com/in/michaelbuecker/"><svg class="icon" aria-hidden="true"><use href="#i-linkedin"/></svg>LinkedIn</a></li>
+        <li><a href="https://orcid.org/0000-0003-0045-8460"><svg class="icon" aria-hidden="true"><use href="#i-orcid"/></svg>ORCID</a></li>
+      </ul>
     </div>
     <div class="bio">
       <h3>Michael Hewing</h3>
@@ -142,6 +212,11 @@
         management, digital transformation, and business process management. Before
         entering academia he was a Senior Managing Consultant at IBM, leading
         digitalisation and IT transformation projects.</p>
+      <ul class="bio-links">
+        <li><a href="https://www.fh-muenster.de/de/msb/ueber-uns/mitarbeitende/professsorenprofile/hewing"><svg class="icon" aria-hidden="true"><use href="#i-university"/></svg>FH Münster</a></li>
+        <li><a href="https://www.linkedin.com/in/michaelhewing/"><svg class="icon" aria-hidden="true"><use href="#i-linkedin"/></svg>LinkedIn</a></li>
+        <li><a href="https://orcid.org/0009-0002-4067-5304"><svg class="icon" aria-hidden="true"><use href="#i-orcid"/></svg>ORCID</a></li>
+      </ul>
     </div>
   </div>
 </section>
@@ -166,18 +241,44 @@
 
 <footer>
   <!--
-    IMPRINT REQUIRED BEFORE THIS PAGE GOES PUBLIC.
-
-    A publicly reachable site operated from Germany carries an imprint
-    obligation (TMG/DDG). What must appear, and who is named as responsible,
-    depends on whether this page runs privately under the authors' names or
-    under FH Münster. Settle that with the university, then replace this
-    comment with the imprint and link it below. GitHub Pages must stay
-    switched off until then.
+    Still to settle before GitHub Pages is switched on: the contact address in
+    imprint.html. An imprint without a means of electronic contact does not
+    satisfy § 5 DDG.
   -->
+  <p><a href="imprint.html">Imprint</a> &middot; <a href="privacy.html">Privacy</a></p>
   <p>&copy; 2026 Michael Bücker and Michael Hewing</p>
-  <p class="imprint-pending">Imprint to follow.</p>
 </footer>
+
+<script>
+  /* The button is hidden in markup and revealed here, so a visitor without
+     JavaScript is not offered a control that cannot work. Their system
+     preference still decides the scheme, which is the sensible default. */
+  (function () {
+    var button = document.getElementById("theme-toggle");
+    if (!button) return;
+    button.hidden = false;
+
+    function current() {
+      return document.documentElement.dataset.theme ||
+        (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    }
+
+    function label() {
+      button.setAttribute(
+        "aria-label",
+        current() === "dark" ? "Switch to light mode" : "Switch to dark mode"
+      );
+    }
+
+    label();
+    button.addEventListener("click", function () {
+      var next = current() === "dark" ? "light" : "dark";
+      document.documentElement.dataset.theme = next;
+      label();
+      try { localStorage.setItem("theme", next); } catch (e) {}
+    });
+  })();
+</script>
 
 </body>
 </html>

@@ -1,6 +1,8 @@
 /* AI Agents — book landing page.
    Palette taken from the book's own (AGENTS.md) and from the cover artwork.
-   No web fonts, no JavaScript, no external requests of any kind. */
+   No web fonts and no external requests of any kind. The only JavaScript is
+   the colour-scheme toggle, which is first-party, inline, and stores nothing
+   beyond the visitor's own choice of theme. */
 
 :root {
   --navy-deep: #0a1f38;
@@ -16,8 +18,12 @@
   --column: 62rem;    /* the page's single content column */
 }
 
+/* Dark scheme. Declared twice so an explicit choice beats the system one:
+   the media query applies unless the visitor has picked light, and the
+   attribute selector applies whenever they have picked dark. Without the
+   `:not()` a visitor on a dark system could not switch to light. */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --accent: #8ab8e8;
     --accent-soft: #1b2f45;
     --tint: #131c26;
@@ -26,6 +32,16 @@
     --page: #0d151d;
     --rule: #223141;
   }
+}
+
+:root[data-theme="dark"] {
+  --accent: #8ab8e8;
+  --accent-soft: #1b2f45;
+  --tint: #131c26;
+  --ink: #dfe7ee;
+  --ink-soft: #9fb0bf;
+  --page: #0d151d;
+  --rule: #223141;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -47,11 +63,47 @@ a { color: var(--accent); }
 /* --- Hero ---------------------------------------------------------------- */
 
 .hero {
-  /* Stays dark in both colour schemes: the cover artwork is dark navy and
-     reads as part of the band rather than a pasted rectangle. */
-  background: linear-gradient(160deg, var(--navy-deep) 0%, var(--navy) 100%);
-  color: #eef4fa;
+  /* Follows the colour scheme like every other band. It used to stay dark in
+     both schemes because the cover was a flat, dark-navy rectangle that
+     needed a dark surround to sit in. The cover is now a 3D render already
+     cut out on white, so it drops onto a light band without a seam -- and a
+     dark slab above light content was the single heaviest thing on the page. */
+  background: var(--tint);
+  color: var(--ink);
   padding: clamp(2.5rem, 7vw, 5.5rem) 1.5rem;
+  border-bottom: 1px solid var(--rule);
+  position: relative;   /* anchors .theme-toggle */
+}
+
+.theme-toggle {
+  position: absolute;
+  top: 1rem;
+  right: 1.25rem;
+  padding: 0.35rem 0.85rem;
+  background: transparent;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  color: var(--ink-soft);
+  font: inherit;
+  font-size: 0.8125rem;
+  cursor: pointer;
+}
+
+.theme-toggle:hover, .theme-toggle:focus-visible {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* The button carries both labels; the scheme in force decides which shows,
+   so the label stays right even when the system preference changes under a
+   visitor who never pressed it. */
+.theme-toggle [data-when="dark"] { display: none; }
+:root[data-theme="dark"] .theme-toggle [data-when="light"] { display: none; }
+:root[data-theme="dark"] .theme-toggle [data-when="dark"] { display: inline; }
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .theme-toggle [data-when="light"] { display: none; }
+  :root:not([data-theme="light"]) .theme-toggle [data-when="dark"] { display: inline; }
 }
 
 .hero-inner {
@@ -70,7 +122,7 @@ a { color: var(--accent); }
   font-size: 0.8125rem;
   letter-spacing: 0.09em;
   text-transform: uppercase;
-  color: #9cc4ea;
+  color: var(--accent);
 }
 
 .hero h1 {
@@ -86,20 +138,28 @@ a { color: var(--accent); }
   font-size: clamp(1.125rem, 2.6vw, 1.5rem);
   line-height: 1.3;
   font-weight: 400;
-  color: #cfe1f3;
+  color: var(--ink-soft);
 }
 
 .authors {
   margin: 1.5rem 0 0;
   font-size: 1rem;
-  color: #9cc4ea;
+  color: var(--ink-soft);
+}
+
+.foreword-by {
+  margin: 0.6rem 0 0;
+  max-width: 32rem;
+  font-size: 0.9375rem;
+  line-height: 1.45;
+  color: var(--ink-soft);
 }
 
 .lede {
   margin: 1.75rem 0 0;
   max-width: 32rem;
   font-size: 1.0625rem;
-  color: #dce9f6;
+  color: var(--ink);
 }
 
 .hero-cover { flex: 0 1 17rem; margin-inline: auto; }
@@ -107,9 +167,10 @@ a { color: var(--accent); }
 .hero-cover img {
   display: block;
   width: 100%;
-  border-radius: 2px;
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  box-shadow: 0 1.25rem 3rem rgba(0, 0, 0, 0.45);
+  /* No box-shadow and no radius: the cover is a cut-out render with its own
+     shadow already in the pixels. CSS would draw a second one around the
+     element's rectangle instead of around the book, which on a tinted band
+     reads as a pale slab behind it. */
 }
 
 /* --- Sections ------------------------------------------------------------ */
@@ -183,6 +244,13 @@ a { color: var(--accent); }
   color: var(--ink-soft);
 }
 
+/* A single endorsement in a band sized for several reads as a gap. Larger
+   type fills it deliberately. Remove this class once a second one lands. */
+.lead-quote blockquote {
+  font-size: clamp(1.1875rem, 2.4vw, 1.4375rem);
+  line-height: 1.45;
+}
+
 /* --- Authors ------------------------------------------------------------- */
 
 .authors-grid {
@@ -194,6 +262,33 @@ a { color: var(--accent); }
 
 .bio h3 { margin: 0 0 0.6rem; font-size: 1.125rem; }
 .bio p { font-size: 1rem; color: var(--ink-soft); }
+.bio-links {
+  margin: 0.9rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.1rem;
+  font-size: 0.9375rem;
+}
+
+.bio-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  text-decoration: none;
+}
+
+.bio-links a:hover, .bio-links a:focus-visible { text-decoration: underline; }
+
+.icon {
+  width: 1em;
+  height: 1em;
+  flex: none;
+  /* The glyphs sit on the text baseline rather than the line box, which is
+     what keeps them level with the label at any font size. */
+  vertical-align: -0.125em;
+}
 
 /* --- Material cards ------------------------------------------------------ */
 
