@@ -633,3 +633,41 @@ footer p { margin: 0 0 0.4rem; }
   }
   .reveal.is-in { opacity: 1; transform: none; }
 }
+
+/* --- Code listing ---------------------------------------------------------- */
+
+.listing { margin: 2rem 0 0; max-width: 40rem; }
+
+.listing pre {
+  margin: 0;
+  padding: 1.1rem 1.25rem;
+  overflow-x: auto;
+  background: var(--page);
+  border: 1px solid var(--rule);
+  border-left: 3px solid var(--accent);
+  border-radius: 4px;
+  /* Nine lines are not worth a sideways scroll. The longest is 46 characters,
+     so on a narrow screen the type shrinks just enough for it to fit rather
+     than making the reader drag the block around. */
+  font-size: clamp(0.72rem, 2.9vw, 0.875rem);
+  line-height: 1.65;
+}
+
+.listing code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  color: var(--ink);
+}
+
+/* Highlighted by hand, in the page's own palette. Three classes are the whole
+   scheme: a keyword, a call, and a comment. Anything finer would need a
+   highlighter, and a highlighter would need a script the page does not load. */
+.listing .k { color: var(--accent); font-weight: 600; }
+.listing .f { color: var(--ink); font-weight: 600; }
+.listing .c { color: var(--ink-soft); font-style: italic; }
+
+.listing figcaption {
+  margin-top: 0.9rem;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}

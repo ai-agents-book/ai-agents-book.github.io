@@ -191,16 +191,35 @@
     practitioners who have to make decisions rather than demonstrations: the
     engineers who build agents, the architects who integrate them, and the people
     who carry the budget and the risk.</p>
-  <!-- This used to read "the book assumes you can read Python", which turns a
-       feature into an entry requirement and sends away the half of the
-       audience the paragraph above has just invited. The preface makes the
-       positive version: the examples are reference implementations, not a
-       tutorial to work through. -->
-  <p>Ideas are anchored throughout in worked Python examples: reference
-    implementations that show a design choice and what it costs, rather than
-    tutorials to work through. Every one of them is available as a runnable
-    notebook — and the argument follows just as well if you never run a line.
-    The book does not assume you have deployed a model before.</p>
+  <!-- Stating the role of code as a feature rather than an entry requirement,
+       and then showing a listing that proves it: the loop below needs no
+       library, no framework and no syntax anyone has to look up, so it makes
+       the reassurance itself instead of asserting it. -->
+  <p>Ideas are anchored throughout in worked Python examples, each available as
+    a <a href="https://github.com/ai-agents-book/code">runnable notebook</a>.
+    Most of them read like the one below, and the argument follows just as well
+    if you never run a line. If you would rather have the basics first,
+    <a href="https://aiagentsbook.org/appendices/appendices/b-python.html">Appendix&nbsp;B</a>
+    is a short introduction to the Python and the web APIs the listings use,
+    free to read online. The book does not assume you have deployed a model
+    before.</p>
+
+  <!-- Listing 4.1, as printed. Coloured by hand because a highlighter would
+       mean a script, and the page loads none. -->
+  <figure class="listing">
+<pre><code><span class="c"># Listing 4.1 — the agent loop, in full</span>
+state = <span class="f">initialize_state</span>(user_input)
+
+<span class="k">while not</span> <span class="f">should_stop</span>(state):
+    action      = <span class="f">select_next_action</span>(state)
+    observation = <span class="f">execute_action</span>(action, state)
+    state       = <span class="f">update_state</span>(state, action, observation)
+
+response = <span class="f">finalize_response</span>(state)</code></pre>
+    <figcaption>Nine lines, and every argument in the book is somewhere in
+      them: what counts as state, who decides the next action, who is allowed
+      to execute it, and what makes it stop.</figcaption>
+  </figure>
 </section>
 
 <section class="band" id="readers">
