@@ -14,6 +14,8 @@
 <link rel="canonical" href="https://aiagentsbook.org/">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preload" href="fonts/source-serif-4.woff2" as="font"
+      type="font/woff2" crossorigin>
 <link rel="stylesheet" href="style.css">
 <script>
   /* Applies a stored theme choice before first paint, so a visitor who picked
@@ -81,7 +83,11 @@
 <header class="hero" id="top">
   <div class="hero-inner">
     <div class="hero-text">
-      <p class="eyebrow">Coming from Springer Nature</p>
+      <!-- "Expected" stays until Springer commits to a date. No ISBN and no
+           pre-order link until they exist: a placeholder that never resolves
+           is worse than an honest silence. -->
+      <p class="eyebrow">Coming from Springer Nature
+        <span aria-hidden="true">&middot;</span> Expected December 2026</p>
       <h1>AI Agents</h1>
       <p class="subtitle">Designing, Orchestrating, and Governing LLM-Based Systems</p>
       <p class="authors">Michael Bücker &middot; Michael Hewing</p>
@@ -129,42 +135,57 @@
     systems in industry.</p>
 </section>
 
-<section class="band alt" id="contents">
+<!-- The book's own framework figure, inlined rather than linked so it inherits
+     the page's colours and needs no second request. It is the argument for the
+     book's structure: its three layers are the three parts. -->
+<section class="band alt" id="framework">
+  <h2>How the book is organised</h2>
+  <p class="intro">The three parts are the three layers of one framework.</p>
+  <figure class="figure">
+    <svg class="framework" viewBox="0 0 828 1150" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg" role="img">
+<title>The AI agent framework</title>
+<desc>Three layers: an organizational layer with strategy, economics, input and output interfaces, policies, and business processes; an operations and processes layer with orchestration, runtime governance, build and maintenance, and security; and the agent architecture core, where an AI model interacts with memory and tools under a system prompt and agent flow. A dashed enclosing box labelled Harness surrounds the operations layer and the agent architecture core together. Tasks flow downward through the layers and responses flow back up.</desc>
+<defs><marker id="fw-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--dia-line)"/></marker><marker id="fw-arrow-s" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--dia-line)"/></marker></defs>
+<g id="part2"><rect x="30" y="24" width="740" height="380" rx="14" fill="var(--dia-fill)" stroke="var(--dia-strong)" stroke-width="2"/><line x1="30" y1="74" x2="770" y2="74" stroke="var(--dia-strong)" stroke-width="1.5"/><text x="52" y="57" font-family="inherit" font-size="19" fill="var(--dia-strong)" font-weight="700" text-anchor="start">Part II</text><text x="420" y="57" font-family="inherit" font-size="20" fill="var(--dia-strong)" font-weight="700" text-anchor="middle">Organization and Economics</text><rect x="58" y="86" width="684" height="34" rx="10" fill="var(--dia-fill)" stroke="var(--dia-soft)" stroke-width="2"/><g transform="translate(361.4,103.0)"><circle cx="0" cy="0" r="10" stroke="var(--dia-strong)" stroke-width="1.8" fill="none"/><circle cx="0" cy="0" r="5.5" stroke="var(--dia-strong)" stroke-width="1.8" fill="none"/><circle cx="0" cy="0" r="1.9" fill="var(--dia-strong)"/></g><text x="384.4" y="108.1" font-family="inherit" font-size="15" fill="var(--dia-mid)" text-anchor="start">Strategy</text><rect x="58" y="128" width="684" height="34" rx="10" fill="var(--dia-fill)" stroke="var(--dia-soft)" stroke-width="2"/><g transform="translate(357.2,145.0)"><rect x="-9" y="3" width="5" height="8" fill="var(--dia-strong)"/><rect x="-1.5" y="-3" width="5" height="14" fill="var(--dia-strong)"/><rect x="6" y="-9" width="5" height="20" fill="var(--dia-strong)"/></g><text x="380.2" y="150.1" font-family="inherit" font-size="15" fill="var(--dia-mid)" text-anchor="start">Economics</text><rect x="58" y="176" width="322" height="122" rx="12" fill="none" stroke="var(--dia-soft)" stroke-width="1.5" stroke-dasharray="4 4"/><text x="219" y="202" font-family="inherit" font-size="16.5" fill="var(--dia-strong)" font-weight="600" text-anchor="middle">Input interface</text><g transform="translate(143,242) scale(1.15)"><circle cx="0" cy="-9" r="7" stroke="var(--dia-strong)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M-12,15 a12,12 0 0 1 24,0" stroke="var(--dia-strong)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g><text x="143" y="286" font-family="inherit" font-size="14.5" fill="var(--dia-mid)" text-anchor="middle">User</text><g transform="translate(295,242) scale(1.15)"><path d="M-9,6 v-7 a9,9 0 0 1 18,0 v7 l4,5 h-26 z" stroke="var(--dia-strong)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M-3,13 a3,3 0 0 0 6,0" stroke="var(--dia-strong)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g><text x="295" y="286" font-family="inherit" font-size="14.5" fill="var(--dia-mid)" text-anchor="middle">Trigger</text><rect x="420" y="176" width="322" height="122" rx="12" fill="none" stroke="var(--dia-soft)" stroke-width="1.5" stroke-dasharray="4 4"/><text x="581" y="202" font-family="inherit" font-size="16.5" fill="var(--dia-strong)" font-weight="600" text-anchor="middle">Output interface</text><g transform="translate(505,242) scale(1.15)"><circle cx="0" cy="-9" r="7" stroke="var(--dia-strong)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M-12,15 a12,12 0 0 1 24,0" stroke="var(--dia-strong)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g><text x="505" y="286" font-family="inherit" font-size="14.5" fill="var(--dia-mid)" text-anchor="middle">User</text><g transform="translate(657,242) scale(1.15)"><rect x="-15" y="-12" width="30" height="22" rx="3" stroke="var(--dia-strong)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><line x1="-15" y1="-5" x2="15" y2="-5" stroke="var(--dia-strong)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="10" cy="-14" r="6" fill="var(--dia-fill)" stroke="var(--dia-strong)" stroke-width="2"/><path d="M7,-14 l2,2 l4,-4" stroke="var(--dia-strong)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g><text x="657" y="286" font-family="inherit" font-size="14.5" fill="var(--dia-mid)" text-anchor="middle">Applications</text><rect x="58" y="312" width="684" height="34" rx="10" fill="var(--dia-fill)" stroke="var(--dia-soft)" stroke-width="2"/><g transform="translate(361.4,329.0)"><line x1="0" y1="-9" x2="0" y2="7" stroke="var(--dia-strong)" stroke-width="1.8" stroke-linecap="round"/><line x1="-5.5" y1="7" x2="5.5" y2="7" stroke="var(--dia-strong)" stroke-width="1.8" stroke-linecap="round"/><line x1="-9" y1="-6" x2="9" y2="-6" stroke="var(--dia-strong)" stroke-width="1.8" stroke-linecap="round"/><path d="M -9,-6 L -13,1 L -5,1 Z" stroke="var(--dia-strong)" stroke-width="1.4" fill="none" stroke-linejoin="round"/><path d="M 9,-6 L 13,1 L 5,1 Z" stroke="var(--dia-strong)" stroke-width="1.4" fill="none" stroke-linejoin="round"/></g><text x="384.4" y="334.1" font-family="inherit" font-size="15" fill="var(--dia-mid)" text-anchor="start">Policies</text><rect x="58" y="354" width="684" height="34" rx="10" fill="var(--dia-fill)" stroke="var(--dia-soft)" stroke-width="2"/><g transform="translate(319.4,371.0)"><circle cx="-9" cy="0" r="3" fill="var(--dia-strong)"/><line x1="-6" y1="0" x2="-1.5" y2="0" stroke="var(--dia-strong)" stroke-width="1.8"/><circle cx="0" cy="0" r="3" fill="var(--dia-strong)"/><line x1="3" y1="0" x2="7.5" y2="0" stroke="var(--dia-strong)" stroke-width="1.8" marker-end="url(#fw-arrow-s)"/><circle cx="10" cy="0" r="3" fill="none" stroke="var(--dia-strong)" stroke-width="1.6"/></g><text x="342.4" y="376.1" font-family="inherit" font-size="15" fill="var(--dia-mid)" text-anchor="start">Business processes</text></g><g id="arrows23"><line x1="160" y1="482" x2="160" y2="410" stroke="var(--dia-line)" stroke-width="2.5" marker-end="url(#fw-arrow)"/><text x="148" y="447" font-family="inherit" font-size="15" fill="var(--dia-mid)" text-anchor="end">Elicitation</text><line x1="400" y1="410" x2="400" y2="482" stroke="var(--dia-line)" stroke-width="2.5" marker-end="url(#fw-arrow)"/><text x="412" y="447" font-family="inherit" font-size="15" fill="var(--dia-mid)" text-anchor="start">Task</text><line x1="640" y1="482" x2="640" y2="410" stroke="var(--dia-line)" stroke-width="2.5" marker-end="url(#fw-arrow)"/><text x="628" y="447" font-family="inherit" font-size="15" fill="var(--dia-mid)" text-anchor="end">System response</text></g><g id="harness"><rect x="14" y="484" width="800" height="652" rx="18" fill="none" stroke="var(--dia-soft)" stroke-width="2" stroke-dasharray="7 5"/><rect x="32" y="473" width="92" height="22" fill="var(--dia-fill)"/><text x="42" y="490" font-family="inherit" font-size="18" fill="var(--dia-line)" font-weight="700" text-anchor="start">Harness</text></g><g id="harness-scope" transform="translate(0,34)"><g id="part3"><rect x="30" y="466" width="740" height="162" rx="14" fill="var(--dia-fill)" stroke="var(--dia-strong)" stroke-width="2"/><line x1="30" y1="516" x2="770" y2="516" stroke="var(--dia-strong)" stroke-width="1.5"/><text x="52" y="499" font-family="inherit" font-size="19" fill="var(--dia-strong)" font-weight="700" text-anchor="start">Part III</text><text x="420" y="499" font-family="inherit" font-size="20" fill="var(--dia-strong)" font-weight="700" text-anchor="middle">Operations</text><g transform="translate(125,562) scale(1.2)"><line x1="-12" y1="-9" x2="4" y2="0" stroke="var(--dia-strong)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><line x1="-12" y1="9" x2="4" y2="0" stroke="var(--dia-strong)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><line x1="4" y1="0" x2="16" y2="-9" stroke="var(--dia-strong)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><line x1="4" y1="0" x2="16" y2="9" stroke="var(--dia-strong)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="-12" cy="-9" r="4" fill="var(--dia-fill)" stroke="var(--dia-strong)" stroke-width="2"/><circle cx="-12" cy="9" r="4" fill="var(--dia-fill)" stroke="var(--dia-strong)" stroke-width="2"/><circle cx="4" cy="0" r="4" fill="var(--dia-fill)" stroke="var(--dia-strong)" stroke-width="2"/><circle cx="16" cy="-9" r="4" fill="var(--dia-fill)" stroke="var(--dia-strong)" stroke-width="2"/><circle cx="16" cy="9" r="4" fill="var(--dia-fill)" stroke="var(--dia-strong)" stroke-width="2"/></g><text x="125" y="610" font-family="inherit" font-size="14" fill="var(--dia-mid)" text-anchor="middle">Orchestration</text><g transform="translate(308.33,562) scale(1.2)"><path d="M0,-14 l12,4 v7 c0,8 -5,12 -12,16 c-7,-4 -12,-8 -12,-16 v-7 z" stroke="var(--dia-strong)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M-5,0 l4,4 l7,-8" stroke="var(--dia-strong)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g><text x="308.33" y="610" font-family="inherit" font-size="14" fill="var(--dia-mid)" text-anchor="middle">Runtime governance</text><g transform="translate(491.67,562) scale(1.2)"><g transform="translate(0,0)"><circle cx="0" cy="0" r="10" stroke="var(--dia-strong)" stroke-width="1.8" fill="none"/><line x1="0" y1="0" x2="0" y2="-6" stroke="var(--dia-strong)" stroke-width="1.8" stroke-linecap="round"/><line x1="0" y1="0" x2="4.5" y2="2.5" stroke="var(--dia-strong)" stroke-width="1.8" stroke-linecap="round"/></g></g><text x="491.67" y="610" font-family="inherit" font-size="14" fill="var(--dia-mid)" text-anchor="middle">Build &amp; maintenance</text><g transform="translate(675,562) scale(1.2)"><rect x="-10" y="-2" width="20" height="15" rx="3" stroke="var(--dia-strong)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M-6,-2 v-5 a6,6 0 0 1 12,0 v5" stroke="var(--dia-strong)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="0" cy="5" r="2" fill="var(--dia-strong)"/></g><text x="675" y="610" font-family="inherit" font-size="14" fill="var(--dia-mid)" text-anchor="middle">Security</text></g><g id="arrows31"><line x1="310" y1="632" x2="310" y2="666" stroke="var(--dia-line)" stroke-width="2.5" marker-end="url(#fw-arrow)"/><text x="298" y="654" font-family="inherit" font-size="15" fill="var(--dia-mid)" text-anchor="end">Selection</text><line x1="490" y1="666" x2="490" y2="632" stroke="var(--dia-line)" stroke-width="2.5" marker-end="url(#fw-arrow)"/><text x="502" y="654" font-family="inherit" font-size="15" fill="var(--dia-mid)" text-anchor="start">Agent response</text></g><g id="part1"><rect x="58" y="670" width="740" height="380" rx="14" fill="var(--dia-fill)" stroke="var(--dia-faint)" stroke-width="2"/><rect x="44" y="688" width="740" height="380" rx="14" fill="var(--dia-fill)" stroke="var(--dia-soft)" stroke-width="2"/><line x1="350" y1="703" x2="378" y2="673" stroke="var(--dia-line)" stroke-width="1.8" marker-start="url(#fw-arrow-s)" marker-end="url(#fw-arrow-s)"/><line x1="400" y1="703" x2="428" y2="673" stroke="var(--dia-line)" stroke-width="1.8" marker-start="url(#fw-arrow-s)" marker-end="url(#fw-arrow-s)"/><line x1="450" y1="703" x2="478" y2="673" stroke="var(--dia-line)" stroke-width="1.8" marker-start="url(#fw-arrow-s)" marker-end="url(#fw-arrow-s)"/><text x="488" y="700" font-family="inherit" font-size="13" fill="var(--dia-mid)" font-style="italic" text-anchor="start">Multi-agent / A2A</text><rect x="30" y="706" width="740" height="380" rx="14" fill="var(--dia-fill)" stroke="var(--dia-strong)" stroke-width="3.5"/><line x1="30" y1="758" x2="770" y2="758" stroke="var(--dia-strong)" stroke-width="1.5"/><text x="52" y="741" font-family="inherit" font-size="19" fill="var(--dia-strong)" font-weight="700" text-anchor="start">Part I</text><text x="400" y="741" font-family="inherit" font-size="20" fill="var(--dia-strong)" font-weight="700" text-anchor="middle">AI Agents: Design and Architecture</text><rect x="68" y="770" width="664" height="30" rx="10" fill="var(--dia-fill)" stroke="var(--dia-soft)" stroke-width="2"/><g transform="translate(355.8,785.0)"><path d="M0,-9 A9,9 0 1 1 -7.794,-4.5" stroke="var(--dia-strong)" stroke-width="2" fill="none" stroke-linecap="round"/><g transform="translate(-7.794,-4.5) rotate(-60)"><path d="M-1.3,-2.5 L4.3,0 L-1.3,2.5 Z" fill="var(--dia-strong)"/></g></g><text x="378.8" y="789.76" font-family="inherit" font-size="14" fill="var(--dia-mid)" text-anchor="start">Agent flow</text><rect x="68" y="808" width="664" height="30" rx="10" fill="var(--dia-fill)" stroke="var(--dia-soft)" stroke-width="2"/><g transform="translate(344.03999999999996,823.0)"><rect x="-9" y="-10" width="18" height="20" rx="2.5" stroke="var(--dia-strong)" stroke-width="1.8" fill="none"/><line x1="-5" y1="-4" x2="5" y2="-4" stroke="var(--dia-strong)" stroke-width="1.8" stroke-linecap="round"/><line x1="-5" y1="1" x2="5" y2="1" stroke="var(--dia-strong)" stroke-width="1.8" stroke-linecap="round"/><line x1="-5" y1="6" x2="1.5" y2="6" stroke="var(--dia-strong)" stroke-width="1.8" stroke-linecap="round"/></g><text x="367.03999999999996" y="827.76" font-family="inherit" font-size="14" fill="var(--dia-mid)" text-anchor="start">System prompt</text><line x1="400" y1="838" x2="400" y2="896" stroke="var(--dia-line)" stroke-width="2" marker-end="url(#fw-arrow)"/><text x="412" y="870" font-family="inherit" font-size="14.5" fill="var(--dia-mid)" text-anchor="start">Instructions</text><g transform="translate(160,952) scale(1.3)"><path d="M-18,-16 a18,7 0 0 0 36,0 a18,7 0 0 0 -36,0 v32 a18,7 0 0 0 36,0 v-32" stroke="var(--dia-strong)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M-18,-5 a18,7 0 0 0 36,0" stroke="var(--dia-strong)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M-18,6 a18,7 0 0 0 36,0" stroke="var(--dia-strong)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g><g transform="translate(400,952) scale(1.3)"><g transform="translate(9,-9) scale(0.86)"><rect x="-20" y="-20" width="40" height="40" rx="5" fill="var(--dia-fill)" stroke="var(--dia-soft)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><rect x="-11" y="-11" width="22" height="22" rx="3" stroke="var(--dia-soft)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><line x1="-12" y1="-20" x2="-12" y2="-26" stroke="var(--dia-soft)" stroke-width="2" stroke-linecap="round"/><line x1="-12" y1="20" x2="-12" y2="26" stroke="var(--dia-soft)" stroke-width="2" stroke-linecap="round"/><line x1="-20" y1="-12" x2="-26" y2="-12" stroke="var(--dia-soft)" stroke-width="2" stroke-linecap="round"/><line x1="20" y1="-12" x2="26" y2="-12" stroke="var(--dia-soft)" stroke-width="2" stroke-linecap="round"/><line x1="0" y1="-20" x2="0" y2="-26" stroke="var(--dia-soft)" stroke-width="2" stroke-linecap="round"/><line x1="0" y1="20" x2="0" y2="26" stroke="var(--dia-soft)" stroke-width="2" stroke-linecap="round"/><line x1="-20" y1="0" x2="-26" y2="0" stroke="var(--dia-soft)" stroke-width="2" stroke-linecap="round"/><line x1="20" y1="0" x2="26" y2="0" stroke="var(--dia-soft)" stroke-width="2" stroke-linecap="round"/><line x1="12" y1="-20" x2="12" y2="-26" stroke="var(--dia-soft)" stroke-width="2" stroke-linecap="round"/><line x1="12" y1="20" x2="12" y2="26" stroke="var(--dia-soft)" stroke-width="2" stroke-linecap="round"/><line x1="-20" y1="12" x2="-26" y2="12" stroke="var(--dia-soft)" stroke-width="2" stroke-linecap="round"/><line x1="20" y1="12" x2="26" y2="12" stroke="var(--dia-soft)" stroke-width="2" stroke-linecap="round"/></g><g><rect x="-20" y="-20" width="40" height="40" rx="5" fill="var(--dia-fill)" stroke="var(--dia-strong)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><rect x="-14" y="-14" width="28" height="28" rx="3" stroke="var(--dia-strong)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><text x="0" y="4" font-family="inherit" font-size="11.15" fill="var(--dia-mid)" text-anchor="middle">LLM</text><line x1="-12" y1="-20" x2="-12" y2="-26" stroke="var(--dia-strong)" stroke-width="2" stroke-linecap="round"/><line x1="-12" y1="20" x2="-12" y2="26" stroke="var(--dia-strong)" stroke-width="2" stroke-linecap="round"/><line x1="-20" y1="-12" x2="-26" y2="-12" stroke="var(--dia-strong)" stroke-width="2" stroke-linecap="round"/><line x1="20" y1="-12" x2="26" y2="-12" stroke="var(--dia-strong)" stroke-width="2" stroke-linecap="round"/><line x1="0" y1="-20" x2="0" y2="-26" stroke="var(--dia-strong)" stroke-width="2" stroke-linecap="round"/><line x1="0" y1="20" x2="0" y2="26" stroke="var(--dia-strong)" stroke-width="2" stroke-linecap="round"/><line x1="-20" y1="0" x2="-26" y2="0" stroke="var(--dia-strong)" stroke-width="2" stroke-linecap="round"/><line x1="20" y1="0" x2="26" y2="0" stroke="var(--dia-strong)" stroke-width="2" stroke-linecap="round"/><line x1="12" y1="-20" x2="12" y2="-26" stroke="var(--dia-strong)" stroke-width="2" stroke-linecap="round"/><line x1="12" y1="20" x2="12" y2="26" stroke="var(--dia-strong)" stroke-width="2" stroke-linecap="round"/><line x1="-20" y1="12" x2="-26" y2="12" stroke="var(--dia-strong)" stroke-width="2" stroke-linecap="round"/><line x1="20" y1="12" x2="26" y2="12" stroke="var(--dia-strong)" stroke-width="2" stroke-linecap="round"/></g></g><g transform="translate(638,956) scale(1.05)"><g transform="translate(-16,-16) rotate(-45)"><line x1="0" y1="-14" x2="0" y2="-7" stroke="var(--dia-strong)" stroke-width="2.6" stroke-linecap="round"/><line x1="0" y1="-7" x2="0" y2="34" stroke="var(--dia-strong)" stroke-width="4.6" stroke-linecap="round"/><rect x="-5" y="34" width="10" height="15" rx="4" fill="var(--dia-strong)"/></g><g transform="translate(13,-13) rotate(45)"><circle cx="0" cy="0" r="13" fill="var(--dia-strong)"/><g transform="rotate(12)"><rect x="-4.8" y="-17" width="9.6" height="13.5" fill="var(--dia-fill)"/><circle cx="0" cy="-3" r="4.6" fill="var(--dia-fill)"/></g><line x1="0" y1="8" x2="0" y2="40" stroke="var(--dia-strong)" stroke-width="10.5" stroke-linecap="round"/><circle cx="0" cy="38.5" r="2.6" fill="var(--dia-fill)"/></g></g><text x="160" y="1040" font-family="inherit" font-size="27" fill="var(--dia-strong)" font-weight="700" text-anchor="middle">Memory</text><text x="400" y="1040" font-family="inherit" font-size="27" fill="var(--dia-strong)" font-weight="700" text-anchor="middle">AI Models</text><text x="638" y="1040" font-family="inherit" font-size="27" fill="var(--dia-strong)" font-weight="700" text-anchor="middle">Tools</text><line x1="342" y1="930" x2="222" y2="930" stroke="var(--dia-line)" stroke-width="2" marker-end="url(#fw-arrow)"/><text x="282" y="918" font-family="inherit" font-size="14.5" fill="var(--dia-mid)" text-anchor="middle">store</text><line x1="222" y1="970" x2="342" y2="970" stroke="var(--dia-line)" stroke-width="2" marker-end="url(#fw-arrow)"/><text x="282" y="996" font-family="inherit" font-size="14.5" fill="var(--dia-mid)" text-anchor="middle">retrieve</text><line x1="458" y1="930" x2="578" y2="930" stroke="var(--dia-line)" stroke-width="2" marker-end="url(#fw-arrow)"/><text x="518" y="918" font-family="inherit" font-size="14.5" fill="var(--dia-mid)" text-anchor="middle">action</text><line x1="578" y1="970" x2="458" y2="970" stroke="var(--dia-line)" stroke-width="2" marker-end="url(#fw-arrow)"/><text x="518" y="996" font-family="inherit" font-size="14.5" fill="var(--dia-mid)" text-anchor="middle">results</text></g></g>
+</svg>
+    <figcaption>Part&nbsp;I builds the architectural core — the model, its memory,
+      its tools. Part&nbsp;III is the operations layer that runs it: orchestration,
+      governance, maintenance, security. Part&nbsp;II is the organization both
+      answer to. The dashed box is the harness, the runtime that supplies the
+      core and the operations layer together.</figcaption>
+  </figure>
+</section>
+
+<section class="band" id="contents">
   <h2>Contents</h2>
   <p class="intro">An introduction, then thirteen chapters in three parts.</p>
-  <div class="parts">
-    <div class="part">
-      <h3>I &middot; Design and Architecture</h3>
-      <ol>
-        <li>Large Language Models</li>
-        <li>Tools</li>
-        <li>Memory</li>
-        <li>Agent flow</li>
-      </ol>
-    </div>
-    <div class="part">
-      <h3>II &middot; Organization and Economics</h3>
-      <ol start="5">
-        <li>Integration</li>
-        <li>Strategy</li>
-        <li>Economics</li>
-        <li>Organizational policies</li>
-        <li>Business processes</li>
-      </ol>
-    </div>
-    <div class="part">
-      <h3>III &middot; Operations</h3>
-      <ol start="10">
-        <li>Orchestration</li>
-        <li>Runtime governance</li>
-        <li>Build and maintenance</li>
-        <li>Security</li>
-      </ol>
-    </div>
+  <div class="contents-list">
+    <h3 class="part-head"><span class="part-no">I</span> Design and Architecture</h3>
+    <ol class="toc" start="1">
+      <li><span class="ch-no">1</span><span class="ch-name">Large Language Models</span><span class="ch-blurb">How the models behave, and where their limits actually sit.</span></li>
+      <li><span class="ch-no">2</span><span class="ch-name">Tools</span><span class="ch-blurb">Function calling, MCP, skills, CLI, GUI — five mechanisms, one cycle.</span></li>
+      <li><span class="ch-no">3</span><span class="ch-name">Memory</span><span class="ch-blurb">What persists between turns, and what keeping it commits you to.</span></li>
+      <li><span class="ch-no">4</span><span class="ch-name">Agent flow</span><span class="ch-blurb">The control structure of a single run: loops, budgets, recovery.</span></li>
+    </ol>
+    <h3 class="part-head"><span class="part-no">II</span> Organization and Economics</h3>
+    <ol class="toc" start="5">
+      <li><span class="ch-no">5</span><span class="ch-name">Integration</span><span class="ch-blurb">How an agent reaches the systems and the people around it.</span></li>
+      <li><span class="ch-no">6</span><span class="ch-name">Strategy</span><span class="ch-blurb">Where agents fit an organization's plans, and where they do not.</span></li>
+      <li><span class="ch-no">7</span><span class="ch-name">Economics</span><span class="ch-blurb">Cost per successful outcome, not cost per run.</span></li>
+      <li><span class="ch-no">8</span><span class="ch-name">Organizational policies</span><span class="ch-blurb">The constraints an agent must not be able to talk its way past.</span></li>
+      <li><span class="ch-no">9</span><span class="ch-name">Business processes</span><span class="ch-blurb">Where deployments actually pay off, domain by domain.</span></li>
+    </ol>
+    <h3 class="part-head"><span class="part-no">III</span> Operations</h3>
+    <ol class="toc" start="10">
+      <li><span class="ch-no">10</span><span class="ch-name">Orchestration</span><span class="ch-blurb">Coordinating several agents, and keeping runs alive between sessions.</span></li>
+      <li><span class="ch-no">11</span><span class="ch-name">Runtime governance</span><span class="ch-blurb">Governance as a second loop, running alongside the first.</span></li>
+      <li><span class="ch-no">12</span><span class="ch-name">Build and maintenance</span><span class="ch-blurb">Building an agent, and keeping it working as models move.</span></li>
+      <li><span class="ch-no">13</span><span class="ch-name">Security</span><span class="ch-blurb">Prompt injection and the attack surface a tool-using agent opens.</span></li>
+    </ol>
   </div>
 </section>
 
-<section class="band" id="audience">
+<section class="band alt" id="audience">
   <h2>Who it is for</h2>
   <p>Graduate students in business, information systems, and data science, and
     practitioners who have to make decisions rather than demonstrations: the
@@ -173,7 +194,7 @@
     does not assume you have deployed a model before.</p>
 </section>
 
-<section class="band alt" id="readers">
+<section class="band" id="readers">
   <h2>What readers say</h2>
   <figure class="quote">
     <blockquote>This book is exactly what I have been looking for for quite some time.
@@ -202,7 +223,7 @@
   <!-- Further endorsements go here as they arrive, as siblings of these two. -->
 </section>
 
-<section class="band" id="authors">
+<section class="band alt" id="authors">
   <h2>The authors</h2>
   <div class="authors-grid">
     <div class="bio">
@@ -249,7 +270,7 @@
   <p class="credit">Both author photographs: FH Münster/Hannah Jasiewitz</p>
 </section>
 
-<section class="band alt" id="material">
+<section class="band" id="material">
   <h2>Material for readers</h2>
   <div class="cards">
     <a class="card" href="https://github.com/ai-agents-book/code">
@@ -268,11 +289,8 @@
 </main>
 
 <footer>
-  <!--
-    Still to settle before GitHub Pages is switched on: the contact address in
-    imprint.html. An imprint without a means of electronic contact does not
-    satisfy § 5 DDG.
-  -->
+  <p class="footer-note">AI Agents: Designing, Orchestrating, and Governing
+    LLM-Based Systems &middot; Springer Nature &middot; expected December 2026</p>
   <p><a href="imprint.html">Imprint</a> &middot; <a href="privacy.html">Privacy</a></p>
   <p>&copy; 2026 Michael Bücker and Michael Hewing</p>
 </footer>
@@ -305,6 +323,49 @@
       label();
       try { localStorage.setItem("theme", next); } catch (e) {}
     });
+  })();
+</script>
+
+<script>
+  /* Sections fade in as they come into view. The class that hides them is
+     added from here, so a visitor with JavaScript off sees the page as it
+     always was rather than a page of blank bands. Anyone who has asked their
+     system for reduced motion is left alone entirely, and so is a browser
+     without IntersectionObserver. */
+  (function () {
+    var calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (calm || !("IntersectionObserver" in window)) return;
+
+    var seen = new IntersectionObserver(function (entries, obs) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("is-in");
+        obs.unobserve(entry.target);
+      });
+    }, { rootMargin: "0px 0px -8% 0px" });
+
+    /* Only sections below the first screen are hidden to begin with. A band
+       that is already on screen has nothing to fade in from, and hiding it
+       would show the visitor a blank page for as long as the observer takes
+       to report back. */
+    document.querySelectorAll("main > section").forEach(function (band) {
+      if (band.getBoundingClientRect().top < window.innerHeight) {
+        band.classList.add("is-in");
+        return;
+      }
+      band.classList.add("reveal");
+      seen.observe(band);
+    });
+
+    /* Jumping to an anchor must not land on a band that is still invisible,
+       so the target is revealed at once rather than waiting for the fade. */
+    function revealTarget() {
+      var id = location.hash.slice(1);
+      var target = id && document.getElementById(id);
+      if (target) target.classList.add("is-in");
+    }
+    revealTarget();
+    window.addEventListener("hashchange", revealTarget);
   })();
 </script>
 

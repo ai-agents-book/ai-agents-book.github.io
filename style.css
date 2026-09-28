@@ -4,6 +4,20 @@
    the colour-scheme toggle, which is first-party, inline, and stores nothing
    beyond the visitor's own choice of theme. */
 
+/* Source Serif 4, self-hosted. A web font is a third-party request only when a
+   third party serves it: this file sits beside the page, so the privacy
+   notice's claim that a visit contacts no one but the host still holds. The
+   file is variable across weight and optical size, which is why one download
+   covers every size and weight here.
+   SIL Open Font License 1.1 -- the text is in fonts/OFL.txt. */
+@font-face {
+  font-family: "Source Serif 4";
+  src: url("fonts/source-serif-4.woff2") format("woff2");
+  font-weight: 200 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --navy-deep: #0a1f38;
   --navy: #143a63;
@@ -16,6 +30,21 @@
   --rule: #dbe4ec;
   --measure: 40rem;   /* reading measure for prose */
   --column: 62rem;    /* the page's single content column */
+
+  --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+
+  /* The framework diagram is inlined, so its ink is the page's to set. These
+     five are the figure's own colours as drawn in the book; the dark scheme
+     restates them below. --dia-fill is the box interior, which must read as
+     lighter than the band it sits on in either scheme. */
+  --dia-strong: #1d4e89;
+  --dia-mid:    #3f6a92;
+  --dia-line:   #557591;
+  --dia-soft:   #a9c3dc;
+  --dia-faint:  #c4d7e8;
+  --dia-fill:   #ffffff;
+
+  --glow: rgba(29, 78, 137, 0.18);
 }
 
 /* Dark scheme. Declared twice so an explicit choice beats the system one:
@@ -31,6 +60,13 @@
     --ink-soft: #9fb0bf;
     --page: #0d151d;
     --rule: #223141;
+    --dia-strong: #8ab8e8;
+    --dia-mid:    #7ea8cf;
+    --dia-line:   #7f9db8;
+    --dia-soft:   #3d5b78;
+    --dia-faint:  #2a4055;
+    --dia-fill:   #182430;
+    --glow: rgba(138, 184, 232, 0.16);
   }
 }
 
@@ -42,6 +78,13 @@
   --ink-soft: #9fb0bf;
   --page: #0d151d;
   --rule: #223141;
+  --dia-strong: #8ab8e8;
+  --dia-mid:    #7ea8cf;
+  --dia-line:   #7f9db8;
+  --dia-soft:   #3d5b78;
+  --dia-faint:  #2a4055;
+  --dia-fill:   #182430;
+  --glow: rgba(138, 184, 232, 0.16);
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -276,26 +319,76 @@ a { color: var(--accent); }
 
 /* --- Contents ------------------------------------------------------------ */
 
-.parts {
-  max-width: none;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
-  gap: 2rem;
-  margin-top: 2rem;
+/* Wider than the prose measure and narrower than the column: each row is a
+   number, a title, and a line about the chapter, and that reads badly both
+   cramped into three columns and stretched across the full width. */
+.contents-list { max-width: 46rem; margin-top: 2.25rem; }
+
+/* The Roman numeral is the key back to the figure above, which carries the
+   same Part I / II / III labels inside it. No colour key: the figure is drawn
+   in one blue in the book, and inventing a second scheme here would tie the
+   two together with a correspondence the diagram does not actually have. */
+.part-head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  margin: 2.5rem 0 0.25rem;
+  font-family: var(--serif);
+  font-size: 1.0625rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--ink);
 }
 
-.part h3 {
-  margin: 0 0 0.75rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid var(--rule);
-  font-size: 0.9375rem;
-  letter-spacing: 0.04em;
+.part-head:first-child { margin-top: 0; }
+
+.part-no {
+  font-variant-numeric: tabular-nums;
+  font-size: 0.8125rem;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--accent);
 }
 
-.part ol { margin: 0; padding-left: 1.4rem; }
-.part li { margin-bottom: 0.35rem; }
+ol.toc {
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.toc li {
+  display: grid;
+  grid-template-columns: 2.5rem 1fr;
+  column-gap: 0.5rem;
+  padding: 0.7rem 0;
+  border-top: 1px solid var(--rule);
+}
+
+.toc li:last-child { border-bottom: 1px solid var(--rule); }
+
+.ch-no {
+  grid-row: 1 / span 2;
+  font-variant-numeric: tabular-nums;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--accent);
+  text-align: right;
+  padding-right: 0.25rem;
+}
+
+.ch-name {
+  font-family: var(--serif);
+  font-size: 1.0625rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.ch-blurb {
+  font-size: 0.9375rem;
+  line-height: 1.45;
+  color: var(--ink-soft);
+}
 
 /* --- Quotes -------------------------------------------------------------- */
 
@@ -433,4 +526,110 @@ footer p { margin: 0 0 0.4rem; }
   font-weight: 400;
   font-size: 0.8em;
   color: var(--ink-soft);
+}
+
+/* --- Serif ---------------------------------------------------------------- */
+
+/* Headings, the hero title and the pull quotes take the serif; running text,
+   navigation and labels stay in the system sans, which is more legible at
+   body size and costs nothing to load. */
+.topbar-brand,
+.hero h1,
+.subtitle,
+.band h2,
+.band h3,
+.quote blockquote {
+  font-family: var(--serif);
+}
+
+.hero h1 { font-weight: 600; letter-spacing: -0.015em; }
+.quote blockquote { font-size: 1.1875rem; line-height: 1.55; }
+
+/* Headlines that break into two lines now break evenly instead of leaving a
+   single word stranded. Ignored by browsers that do not know it. */
+.hero h1, .subtitle, .band h2, .band h3, .part-head, .ch-name, .intro {
+  text-wrap: balance;
+}
+
+/* A short rule under each section heading, in the cover's blue. */
+.band h2 { margin-bottom: 1.1rem; }
+
+.band h2::after {
+  content: "";
+  display: block;
+  width: 2.25rem;
+  height: 2px;
+  margin-top: 0.75rem;
+  background: var(--accent);
+  border-radius: 1px;
+}
+
+/* --- The framework figure -------------------------------------------------- */
+
+.figure { margin: 2.25rem 0 0; max-width: 34rem; }
+
+.framework {
+  display: block;
+  width: 100%;
+  height: auto;
+  font-size: 13px;   /* the diagram's text is sized in user units */
+}
+
+.figure figcaption {
+  margin-top: 1rem;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+
+/* --- Cover ---------------------------------------------------------------- */
+
+/* A soft light behind the render, in the navy of the cover artwork. The glow
+   is a pseudo-element rather than a box-shadow so it follows the book's shape
+   loosely instead of outlining the element's rectangle. */
+.hero-cover { position: relative; }
+
+.hero-cover::before {
+  content: "";
+  position: absolute;
+  inset: -14% -10%;
+  background: radial-gradient(closest-side, var(--glow), transparent 72%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.hero-cover img { position: relative; z-index: 1; }
+
+/* --- Footer note ----------------------------------------------------------- */
+
+.footer-note {
+  max-width: 34rem;
+  margin-inline: auto;
+  font-size: 0.875rem;
+  color: var(--ink-soft);
+}
+
+/* --- Selection and focus ---------------------------------------------------- */
+
+::selection { background: var(--accent-soft); color: var(--ink); }
+
+/* One visible focus ring everywhere, for keyboard users only. The default in
+   several browsers is a hairline that disappears against the tinted bands. */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* --- Reveal on scroll -------------------------------------------------------- */
+
+/* The class is added by script, so a visitor without JavaScript never gets a
+   hidden section; and the whole effect is behind a motion query. */
+@media (prefers-reduced-motion: no-preference) {
+  .reveal {
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.55s ease-out, transform 0.55s ease-out;
+  }
+  .reveal.is-in { opacity: 1; transform: none; }
 }
