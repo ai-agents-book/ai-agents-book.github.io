@@ -99,6 +99,14 @@ a { color: var(--accent); }
   color: var(--accent);
 }
 
+/* On a narrow screen the text runs nearly edge to edge, so a button pinned
+   to the viewport sits on top of it for the whole scroll. There it parks at
+   the top of the page instead and scrolls away like any other element. */
+@media (max-width: 48rem) {
+  body { position: relative; }
+  .theme-toggle { position: absolute; }
+}
+
 /* The button carries both labels; the scheme in force decides which shows,
    so the label stays right even when the system preference changes under a
    visitor who never pressed it. */
@@ -258,7 +266,31 @@ a { color: var(--accent); }
   gap: 2.5rem;
 }
 
-.bio h3 { margin: 0 0 0.6rem; font-size: 1.125rem; }
+.bio-head {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  margin-bottom: 0.6rem;
+}
+
+/* Served square and masked here rather than cropped to a circle in the file,
+   so the same asset stays usable if the shape ever changes. */
+.portrait {
+  width: 4.5rem;
+  height: 4.5rem;
+  flex: none;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.bio h3 { margin: 0; font-size: 1.125rem; }
+
+/* The photographer's credit, once for both portraits. */
+.credit {
+  margin-top: 1.5rem;
+  font-size: 0.8125rem;
+  color: var(--ink-soft);
+}
 .bio p { font-size: 1rem; color: var(--ink-soft); }
 .bio-links {
   margin: 0.9rem 0 0;
