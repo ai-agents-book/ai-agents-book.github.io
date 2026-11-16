@@ -192,6 +192,37 @@ a { color: var(--accent); }
 /* Sits in the top bar now. It used to float over the page, which meant it
    covered text at phone width for the whole scroll; riding along in the bar
    removes that problem instead of working around it. */
+/* Same shape as the theme toggle beside it, because they are the same kind
+   of thing to a reader: a small switch for how the page is presented. It is
+   an anchor rather than a button, so it works with JavaScript off and can be
+   opened in a new tab. */
+.lang {
+  flex: none;
+  padding: 0.3rem 0.8rem;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  color: var(--ink-soft);
+  font-size: 0.8125rem;
+  text-decoration: none;
+}
+
+.lang:hover, .lang:focus-visible {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* The language name in full where there is room, the two-letter code where
+   there is not: the topbar's section links are a horizontal scroller on a
+   phone, and every pill beside them eats into what the reader can see of it. */
+.lang-abbr { display: none; }
+
+/* Its own query rather than a line in the one further up, which sits above
+   these rules in the file and would lose to them at equal specificity. */
+@media (max-width: 48rem) {
+  .lang-full { display: none; }
+  .lang-abbr { display: inline; }
+}
+
 .theme-toggle {
   flex: none;
   background: transparent;

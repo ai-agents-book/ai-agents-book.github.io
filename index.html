@@ -14,6 +14,9 @@
 <meta property="book:release_date" content="2027-02-24">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="canonical" href="https://aiagentsbook.org/">
+<link rel="alternate" hreflang="en" href="https://aiagentsbook.org/">
+<link rel="alternate" hreflang="de" href="https://aiagentsbook.org/de/">
+<link rel="alternate" hreflang="x-default" href="https://aiagentsbook.org/">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preload" href="fonts/source-serif-4.woff2" as="font"
@@ -77,6 +80,12 @@
     <li><a href="#authors">Authors</a></li>
     <li><a href="#material">Material</a></li>
   </ul>
+  <!-- The language switch is a plain link to the other page, not a control
+       that rewrites this one: the two languages are two documents, each with
+       its own URL, so they can be shared, indexed and opened without
+       JavaScript. It sits before the theme toggle because it changes the
+       content, which outranks changing the colours. -->
+  <a class="lang" href="de/" hreflang="de" lang="de"><span class="lang-full">Deutsch</span><span class="lang-abbr">DE</span></a>
   <button id="theme-toggle" class="theme-toggle" type="button" hidden>
     <span data-when="light">Dark mode</span><span data-when="dark">Light mode</span>
   </button>
