@@ -91,10 +91,10 @@ for a_, b_ in (('href="favicon.svg"', 'href="../favicon.svg"'),
                ('href="style.css"', 'href="../style.css"'),
                ('src="img/cover-3d.webp"', 'src="../img/cover-3d.webp"'),
                ('src="img/buecker.webp"', 'src="../img/buecker.webp"'),
-               ('src="img/hewing.webp"', 'src="../img/hewing.webp"'),
-               ('href="imprint.html"', 'href="../imprint.html"'),
-               ('href="privacy.html"', 'href="../privacy.html"')):
+               ('src="img/hewing.webp"', 'src="../img/hewing.webp"')):
     swap(a_, b_)
+# imprint.html and privacy.html keep their relative links: the German ones
+# sit beside this page in de/, not one level up.
 
 # -------------------------------------------------------------- navigation
 swap('<a class="lang" href="de/" hreflang="de" lang="de">'
@@ -386,3 +386,204 @@ os.makedirs(os.path.join(SITE, 'de'), exist_ok=True)
 with open(os.path.join(SITE, 'de', 'index.html'), 'w', encoding='utf-8') as fh:
     fh.write(out)
 print('wrote de/index.html, %d bytes' % len(out))
+
+
+# ====================================================================
+# The legal pages. Same mechanism, their own tables. These are the two
+# documents where the German wording is the one that matters to a German
+# authority, so the statutes are cited the way German practice cites them
+# (Art. 6 Abs. 1 lit. f, § 25 Abs. 2) rather than transliterated.
+# ====================================================================
+
+def legal(name, title_de, nav_de, table, keep):
+    global out
+    out = open(os.path.join(SITE, name), encoding='utf-8').read()
+    swap('<html lang="en">', '<html lang="de">')
+    swap('<title>%s</title>' % title_de[0], '<title>%s</title>' % title_de[1])
+    for a_, b_ in (('href="favicon.svg"', 'href="../favicon.svg"'),
+                   ('href="apple-touch-icon.png"',
+                    'href="../apple-touch-icon.png"'),
+                   ('href="style.css"', 'href="../style.css"')):
+        swap(a_, b_)
+    swap('<a class="lang" href="de/%s" hreflang="de" lang="de">'
+         '<span class="lang-full">Deutsch</span>'
+         '<span class="lang-abbr">DE</span></a>' % name,
+         '<a class="lang" href="../%s" hreflang="en" lang="en">'
+         '<span class="lang-full">English</span>'
+         '<span class="lang-abbr">EN</span></a>' % name)
+    swap('<li><a href="index.html">Back to the book</a></li>',
+         '<li><a href="index.html">%s</a></li>' % nav_de)
+    swap('<span data-when="light">Dark mode</span>'
+         '<span data-when="dark">Light mode</span>',
+         '<span data-when="light">Dunkel</span>'
+         '<span data-when="dark">Hell</span>')
+    swap('current() === "dark" ? "Switch to light mode" : "Switch to dark mode"',
+         'current() === "dark" ? "Zum Hellmodus wechseln" '
+         ': "Zum Dunkelmodus wechseln"')
+
+    a = out.index('<main>')
+    b = out.index('</html>')
+    body = out[a:b]
+    pieces, last, seen = [], 0, set()
+    for m in BLOCK.finditer(body):
+        key = hashlib.sha1(
+            ' '.join(m.group(3).split()).encode()).hexdigest()[:10]
+        if key in keep:
+            continue
+        assert key in table, 'untranslated in %s: %.60r (%s)' % (
+            name, ' '.join(m.group(3).split()), key)
+        seen.add(key)
+        pieces.append(body[last:m.start(3)])
+        pieces.append(' '.join(table[key].split()))
+        last = m.end(3)
+    pieces.append(body[last:])
+    assert seen == set(table), 'unused in %s: %s' % (name, set(table) - seen)
+    out = out[:a] + ''.join(pieces) + out[b:]
+    with open(os.path.join(SITE, 'de', name), 'w', encoding='utf-8') as fh:
+        fh.write(out.replace('<!doctype html>', '<!doctype html>\n' + banner, 1))
+    print('wrote de/%s, %d bytes' % (name, len(out)))
+
+
+BACK = '<a href="index.html">Zurück zum Buch</a>'
+COPY = '&copy; 2026 Michael Bücker und Michael Hewing'
+
+legal('imprint.html', ('Imprint — AI Agents', 'Impressum — AI Agents'),
+      'Zurück zum Buch',
+      {
+ 'bed98d10e9': 'Impressum',
+ '70a3e50f5c': 'Angaben gemäß § 5 Digitale-Dienste-Gesetz (DDG)',
+ '42fa8560ad': 'Verantwortlich für diese Website',
+ '1de28c2310': 'FH Münster<br> Hüfferstraße 27<br> 48149 Münster<br> '
+               'Deutschland',
+ 'b37456c453': 'Kontakt',
+ 'c8c0c94618': 'Inhaltlich verantwortlich nach § 18 Abs. 2 MStV',
+ 'ed3a61e726': 'Prof. Dr. Michael Bücker und Prof. Dr. Michael Hewing, '
+               'Anschrift wie oben.',
+ '5e461a2404': 'Über diese Seite',
+ '0ca734f19a':
+    '''Diese Seite begleitet das Buch <em>AI Agents: Designing,
+    Orchestrating, and Governing LLM-Based Systems</em> von Michael Bücker
+    und Michael Hewing (Springer Nature). Sie ist eine Autorenseite zu
+    diesem Buch. Die oben genannte Anschrift ist der Dienstsitz der Autoren;
+    die Seite ist keine Veröffentlichung der FH Münster, und die Hochschule
+    ist nicht ihre Betreiberin.''',
+ 'fea64446a1': 'Haftung für Links',
+ '14c6c91ff9':
+    '''Diese Seite verlinkt auf externe Websites, auf deren Inhalte sie
+    keinen Einfluss hat. Für diese Inhalte ist der jeweilige Anbieter
+    verantwortlich. Die verlinkten Seiten wurden zum Zeitpunkt der
+    Verlinkung auf Rechtsverstöße geprüft; solche waren nicht erkennbar.
+    Eine dauerhafte inhaltliche Kontrolle ohne konkrete Anhaltspunkte für
+    eine Rechtsverletzung ist nicht zumutbar. Bei Bekanntwerden einer
+    Rechtsverletzung wird der Link entfernt.''',
+ '12b79ebe9c': '<a href="privacy.html">Datenschutzerklärung</a>',
+ 'c11071de1d': BACK,
+ 'cb2f084d1e': COPY,
+      },
+      keep={'b113dbce16', '5783175bde', '54fb4be5ea'})
+
+legal('privacy.html', ('Privacy — AI Agents', 'Datenschutz — AI Agents'),
+      'Zurück zum Buch',
+      {
+ 'dab00b1467': 'Datenschutzerklärung',
+ '0f6df87655': 'Informationen nach Art. 13 DSGVO für die Website '
+               '<a href="https://aiagentsbook.org/">aiagentsbook.org</a>',
+ 'fd28161568': 'Verantwortliche',
+ '5ba7a480c4':
+    '''Prof. Dr. Michael Bücker und Prof. Dr. Michael Hewing<br>
+    FH Münster, Hüfferstraße 27, 48149 Münster, Deutschland<br>
+    <a href="mailto:michael.buecker@fh-muenster.de">michael.buecker@fh-muenster.de</a><br>
+    <a href="mailto:michael.hewing@fh-muenster.de">michael.hewing@fh-muenster.de</a>''',
+ '3b3902043e': 'Was diese Seite nicht tut',
+ 'dc833528ba':
+    '''Dies ist eine statische Seite über ein Buch. Sie setzt keine Cookies
+    und enthält keine Analysewerkzeuge, keine Zählpixel, keine Werbung,
+    keine Social-Media-Schaltflächen und keine eingebetteten Inhalte. Ihre
+    einzige Schriftart wird von dieser Seite selbst ausgeliefert, und es
+    wird überhaupt nichts von einem Server Dritter geladen; der Besuch der
+    Seite veranlasst Ihren Browser also, niemanden zu kontaktieren außer dem
+    unten genannten Hoster. Es gibt kein Kontaktformular und keinen
+    Newsletter; nichts auf dieser Seite fragt Sie nach personenbezogenen
+    Daten.''',
+ 'd030b7ccb0': 'Hosting und Server-Logfiles',
+ '5024046ffb':
+    '''Die Seite wird bei GitHub Pages gehostet. GitHub gibt an, dass beim
+    Besuch einer GitHub-Pages-Seite die IP-Adresse der Besucherin oder des
+    Besuchers zu Sicherheitszwecken protokolliert und gespeichert wird,
+    unabhängig davon, ob eine Anmeldung bei GitHub besteht
+    (<a href="https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages">What
+    is GitHub Pages?</a>). Die allgemeine Datenschutzerklärung von GitHub
+    beschreibt darüber hinaus die automatische Erhebung von Dienst- und
+    Nutzungsinformationen, darunter Geräte- und Anfragedaten, Datum und
+    Uhrzeit des Besuchs sowie die aufgerufenen Seiten.''',
+ 'c66ed3e3cf':
+    '''<strong>Empfänger:</strong> GitHub, Inc., 88 Colin P. Kelly Jr.
+    Street, San Francisco, CA 94107, USA, als Anbieter des Hosting-Dienstes
+    GitHub Pages.''',
+ 'f82f8ddc48':
+    '''<strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. f DSGVO. Das
+    berechtigte Interesse liegt in der sicheren und zuverlässigen
+    Auslieferung der Seite.''',
+ 'c96d2f5e85':
+    '''<strong>Speicherdauer:</strong> Die Speicherdauer dieser
+    Server-Logdaten bestimmt GitHub nach seinen eigenen
+    Datenschutzregelungen. Wir haben keinen Zugriff auf diese Protokolle,
+    werten sie nicht aus und können sie nicht eigenständig löschen.''',
+ 'e694f2a216':
+    '''<strong>Drittlandübermittlung:</strong> GitHub speichert und
+    verarbeitet personenbezogene Daten an verschiedenen Orten, darunter in
+    den Vereinigten Staaten. GitHub gibt an, die Einhaltung der Grundsätze
+    des EU–U.S. Data Privacy Framework zertifiziert zu haben und sich für
+    Übermittlungen in Länder ohne Angemessenheitsbeschluss auf die von der
+    Europäischen Kommission veröffentlichten Standardvertragsklauseln zu
+    stützen. Beides ist im
+    <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">GitHub
+    General Privacy Statement</a> beschrieben.''',
+ 'f9f6395052': 'Einstellung des Farbschemas',
+ 'fb1b42c61a':
+    '''Die Seite bietet eine helle und eine dunkle Darstellung. Sie folgt
+    der Einstellung Ihres Betriebssystems, solange Sie nicht die
+    Schaltfläche drücken, die sie umschaltet. Tun Sie das, wird diese Wahl,
+    das einzelne Wort <code>light</code> oder <code>dark</code>, im lokalen
+    Speicher Ihres Browsers abgelegt, damit die Seite beim nächsten Mal so
+    aussieht, wie Sie sie verlassen haben.''',
+ 'fbd59ccf4e':
+    '''Das ist kein Cookie, wird nirgendwohin übertragen, enthält nichts
+    über Sie und dient nicht dazu, Sie wiederzuerkennen. Gespeichert wird es
+    nur, weil Sie es durch das Drücken der Schaltfläche angefordert haben;
+    deshalb erscheint kein Einwilligungsbanner (§ 25 Abs. 2 TDDDG). Das
+    Löschen der Websitedaten in Ihrem Browser entfernt es. Drücken Sie die
+    Schaltfläche nie, wird überhaupt nichts gespeichert.''',
+ 'bf541a9940': 'Links zu anderen Seiten',
+ 'ebb9f9804c':
+    '''Diese Seite verlinkt auf externe Angebote, darunter GitHub sowie die
+    persönlichen und hochschulseitigen Seiten der Autoren. Wer einem Link
+    folgt, gelangt zu einem Anbieter mit eigenen Datenschutzpraktiken, auf
+    die wir keinen Einfluss haben. Bis zum Klick wird dorthin nichts
+    übertragen.''',
+ 'e71102d544': 'Ihre Rechte',
+ '9f0163a8eb':
+    '''Unter den Voraussetzungen der DSGVO und soweit sie für die jeweilige
+    Verarbeitung gelten, haben Sie das Recht auf Auskunft über Ihre
+    personenbezogenen Daten (Art. 15), auf Berichtigung (Art. 16), auf
+    Löschung (Art. 17), auf Einschränkung der Verarbeitung (Art. 18), auf
+    Datenübertragbarkeit (Art. 20) und auf Widerspruch gegen eine
+    Verarbeitung auf Grundlage berechtigter Interessen (Art. 21). Zur
+    Ausübung wenden Sie sich an die oben genannte Anschrift.''',
+ '9c9ec54972':
+    '''Nicht jedes Recht erreicht jede hier beschriebene Verarbeitung. Das
+    Recht auf Datenübertragbarkeit etwa setzt eine Verarbeitung auf
+    Grundlage einer Einwilligung oder eines Vertrags voraus; die oben
+    genannten Server-Logdaten werden auf Grundlage berechtigter Interessen
+    verarbeitet und liegen bei GitHub, nicht bei uns, weshalb eine Anfrage
+    dazu gegebenenfalls dorthin zu richten ist.''',
+ 'a8e8704552':
+    '''Sie haben außerdem das Recht, sich bei einer Aufsichtsbehörde zu
+    beschweren. Zuständig für Nordrhein-Westfalen ist die
+    Landesbeauftragte für Datenschutz und Informationsfreiheit
+    Nordrhein-Westfalen.''',
+ 'c79aa342d9': '<a href="imprint.html">Impressum</a>',
+ 'c11071de1d': BACK,
+ 'cb2f084d1e': COPY,
+      },
+      keep=set())
