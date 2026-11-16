@@ -283,6 +283,45 @@ a { color: var(--accent); }
   color: var(--ink);
 }
 
+/* Two links, not two buttons: the Springer page is where the book lives, so
+   it carries the filled treatment, and the retailer sits beside it in the
+   quiet one. Both are sized by their own text rather than stretched to a
+   common width, which would imply they are the same kind of destination. */
+.hero-actions {
+  margin: 1.75rem 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.action {
+  display: inline-block;
+  padding: 0.6rem 1.1rem;
+  border: 1px solid var(--accent);
+  border-radius: 6px;
+  background: var(--accent);
+  color: var(--page);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.action:hover, .action:focus-visible {
+  background: var(--navy);
+  border-color: var(--navy);
+}
+
+/* The retailers are a sentence, not a second button. Two buttons side by
+   side would read as two equal destinations, and the shop that sells the
+   book is not the equal of the publisher's own page. */
+.preorder {
+  align-self: center;
+  font-size: 0.9375rem;
+  color: var(--ink-soft);
+}
+
+.preorder a { color: var(--accent); }
+
 .hero-cover { flex: 0 1 17rem; margin-inline: auto; }
 
 .hero-cover img {
@@ -523,6 +562,26 @@ footer {
 }
 
 footer p { margin: 0 0 0.4rem; }
+
+/* The editions run inline on a wide screen and stack on a narrow one, which
+   is what a plain flex-wrap list does on its own. What marks the edition
+   name is weight and the accent colour, not a paler grey on the rest: a tone
+   quiet enough to read as secondary here lands around 1.8:1 against the
+   page, which is unreadable rather than quiet. Number and date therefore
+   share the footer's own ink. */
+.editions {
+  margin: 0.9rem auto 1.1rem;
+  padding: 0;
+  max-width: 44rem;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.35rem 1.4rem;
+  font-size: 0.875rem;
+}
+
+.editions .ed { font-weight: 600; color: var(--accent); }
 
 /* The German legal term beside the English heading: quieter than the title
    it sits next to, because it is a signpost for German visitors rather than
